@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\ImageHelper;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class JobSeekerProfileController extends Controller
 {
@@ -77,4 +78,40 @@ class JobSeekerProfileController extends Controller
         return view('jobseeker.show', compact('user', 'profile'));
     }
 
+     //Download the jobseeker's CV as PDF
+    public function downloadCV(User $user)
+    {
+        // Only allow downloading jobseeker CVs
+        abort_if($user->role_type !== 'jobseeker', 404);
+        
+        // Check if profile exists
+        abort_if(!$user->jobseekerProfile, 404, 'Profile not found');
+        
+        $profile = $user->jobseekerProfile;
+        
+        $pdf = Pdf::loadView('pdf.cv', compact('user', 'profile'));
+        
+        // Set paper size and orientation
+        $pdf->setPaper('a4', 'portrait');
+        
+        // Generate filename
+        $filename = str_replace(' ', '_', $user->first_name . '_' . $user->last_name) . '_CV.pdf';
+        
+        return $pdf->download($filename);
+    }
+
+    //Download own CV (for authenticated jobseeker)
+
+    public function downloadOwnCV()
+    {
+        $user = Auth::user();
+        
+        // Only jobseekers can download their own CV
+        abort_if($user->role_type !== 'jobseeker', 403);
+        
+        // Check if profile exists
+        abort_if(!$user->jobseekerProfile, 404, 'Please complete your profile first');
+        
+        return $this->downloadCV($user);
+    }
 }

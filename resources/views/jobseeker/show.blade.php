@@ -85,8 +85,7 @@
                 {!! $user->jobseekerProfile->bio !!}
             </div>
         @endif
-
-
+        
         <!-- Skills Section -->
         @if($profile->skills)
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
@@ -135,6 +134,36 @@
             </div>
         </div>
         @endif
+
+
+        <!-- Download CV Button -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
+                <h2 class="text-base font-semibold text-gray-900">Download CV</h2>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg border border-indigo-100">
+                    <div class="flex-shrink-0">
+                        <div class="w-14 h-14 rounded-lg bg-white shadow-sm flex items-center justify-center">
+                            <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-gray-900">{{ $user->first_name }} {{ $user->last_name }}'s CV</p>
+                        <p class="text-xs text-gray-600 mt-0.5">PDF Document - Generated CV</p>
+                    </div>
+                    <a href="{{ route('jobseeker.cv.download', $user) }}"
+                       class="inline-flex items-center px-4 py-2 bg-indigo-600 text-sm font-semibold text-white rounded-lg hover:bg-indigo-700 shadow-sm transition">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+        </div>
 
         <!-- Back Button -->
         <div class="flex justify-center pt-4">

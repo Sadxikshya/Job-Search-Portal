@@ -96,7 +96,12 @@ Route::patch('/applications/{application}/status',
 )->middleware('auth');
 
 
+Route::get('/jobseekers/{user}/cv', [JobSeekerProfileController::class, 'downloadCV'])
+    ->name('jobseeker.cv.download');
 
+Route::get('/jobseeker/cv/download', [JobSeekerProfileController::class, 'downloadOwnCV'])
+    ->middleware('auth')
+    ->name('jobseeker.cv.own');
 
 
 
