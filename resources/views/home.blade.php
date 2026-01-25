@@ -1,167 +1,594 @@
-{{-- <x-layout>
-    <x-slot:heading>
-        Home Page
-    </x-slot:heading>    
-</x-layout> --}}
-
 <x-layout>
     <x-slot:heading>
         Home Page
     </x-slot:heading>
 
-    <!-- Hero Section -->
-   <section class="bg-gradient-to-r from-gray-50 to-blue-300 text-gray-900 py-20">
-        <div class="container mx-auto px-4 text-center max-w-4xl">
-            <h1 class="text-5xl font-bold mb-4">Find Your Dream Job Today</h1>
-            <p class="text-xl mb-8">Connect with top employers and discover opportunities that match your skills</p>
-            
-            <!-- Search Bar -->
-            {{-- <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-2 flex flex-col md:flex-row gap-2">
-                <input type="text" placeholder="Job title or keyword" class="flex-1 px-4 py-3 rounded text-gray-800 focus:outline-none">
-                <input type="text" placeholder="Location" class="flex-1 px-4 py-3 rounded text-gray-800 focus:outline-none">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded font-semibold">Search Jobs</button>
-            </div> --}}
-        </div>
-    </section>
-
-    <!-- Quick Stats -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <h3 class="text-4xl font-bold text-blue-600">10,000+</h3>
-                <p class="text-gray-600">Active Jobs</p>
-            </div>
-            <div>
-                <h3 class="text-4xl font-bold text-blue-600">5,000+</h3>
-                <p class="text-gray-600">Companies</p>
-            </div>
-            <div>
-                <h3 class="text-4xl font-bold text-blue-600">50,000+</h3>
-                <p class="text-gray-600">Job Seekers</p>
-            </div>
-            <div>
-                <h3 class="text-4xl font-bold text-blue-600">8,000+</h3>
-                <p class="text-gray-600">Successful Hires</p>
-            </div>
-        </div>
-    </section>
-
-    {{-- <!-- Featured Jobs -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8">Featured Jobs</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Job Card Example -->
-                <div class="bg-white border rounded-lg p-6 hover:shadow-lg transition">
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <h3 class="font-bold text-lg">Senior Developer</h3>
-                            <p class="text-gray-600">Tech Company Inc.</p>
+    <!-- Hero Section with Search -->
+    <section class="relative bg-gradient-to-br from-blue-600 via-blue-500/600/indigo-600 text-white py-40 md:py-10">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Find Your Next Opportunity Faster
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 text-blue-100">
+                    Connect with top employers and discover opportunities that match your skills
+                </p>
+                
+                <!-- Job Search Bar -->
+                {{-- <div class="bg-white rounded-xl shadow-2xl p-4 md:p-6">
+                    <form class="flex flex-col md:flex-row gap-3">
+                        <div class="flex-1">
+                            <input 
+                                type="text" 
+                                placeholder="Job title, keywords, or company" 
+                                class="w-full px-4 py-4 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                            />
                         </div>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Full-time</span>
-                    </div>
-                    <p class="text-gray-700 text-sm mb-4">Location: Remote</p>
-                    <p class="text-blue-600 font-semibold">$80,000 - $120,000</p>
+                        <div class="flex-1">
+                            <input 
+                                type="text" 
+                                placeholder="City, state, or remote" 
+                                class="w-full px-4 py-4 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                            />
+                        </div>
+                        <button 
+                            type="submit" 
+                            class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap"
+                        >
+                            Search Jobs
+                        </button>
+                    </form>
+                </div> --}}
+
+                <!-- Employer CTA -->
+                <div class="mt-8">
+                    <a href="/jobs/create" class="inline-flex items-center text-white hover:text-blue-100 transition-colors">
+                        <span class="text-lg">Are you hiring?</span>
+                        <span class="ml-2 font-semibold border-b-2 border-white">Post a Job →</span>
+                    </a>
                 </div>
-                <!-- Add more job cards -->
             </div>
         </div>
-    </section> --}}
+    </section>
 
-    {{-- <!-- Job Categories -->
-    <section class="py-16 bg-gray-50">
+    <!-- Trust Indicators / Quick Stats -->
+    <section class="py-16 bg-white border-b">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8">Browse by Category</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <a href="#" class="bg-white p-6 rounded-lg text-center hover:shadow-lg transition">
-                    <div class="text-3xl mb-2">💻</div>
-                    <h4 class="font-semibold">Technology</h4>
-                    <p class="text-sm text-gray-600">1,200 jobs</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">10,000+</h3>
+                    <p class="text-gray-600 text-sm md:text-base">Active Jobs</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">5,000+</h3>
+                    <p class="text-gray-600 text-sm md:text-base">Companies Hiring</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">50,000+</h3>
+                    <p class="text-gray-600 text-sm md:text-base">Active Job Seekers</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">8,000+</h3>
+                    <p class="text-gray-600 text-sm md:text-base">Successful Hires</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Job Categories -->
+    {{-- <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Browse Jobs by Category
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Explore opportunities in your field
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+                <a href="/jobs?category=technology" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">💻</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Technology</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">1,200 jobs</p>
                 </a>
-                <!-- Add more categories -->
+                
+                <a href="/jobs?category=healthcare" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">🏥</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Healthcare</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">890 jobs</p>
+                </a>
+                
+                <a href="/jobs?category=finance" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">💰</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Finance</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">650 jobs</p>
+                </a>
+                
+                <a href="/jobs?category=marketing" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">📱</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Marketing</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">540 jobs</p>
+                </a>
+                
+                <a href="/jobs?category=design" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">🎨</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Design</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">420 jobs</p>
+                </a>
+                
+                <a href="/jobs?category=education" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                    <div class="text-4xl mb-3 text-center">📚</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Education</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">380 jobs</p>
+                </a>
             </div>
         </div>
     </section> --}}
 
-    <!-- How It Works -->
-    <section class="py-16">
-        <div class="container mx-auto px-4 max-w-5xl">
-            <h2 class="text-3xl font-bold text-center mb-12">How It Works</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">1</span>
-                    </div>
-                    <h3 class="font-bold text-xl mb-2">Create Profile</h3>
-                    <p class="text-gray-600">Sign up and build your professional profile in minutes</p>
+
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Browse Jobs by Job type
+                </h2>
+                <p class="text-lg text-gray-600">
+                   Explore the Job suitable for you
+                </p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
+                <a href="/jobs?job_type=full-time" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
+                    <div class="text-4xl mb-3 text-center">💼</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Full-TIme</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">1,200 jobs</p>
+                </a>
+                
+                <a href="/jobs?job_type=part-time" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
+                    <div class="text-4xl mb-3 text-center">⏰</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Part-Time</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">890 jobs</p>
+                </a>
+                
+                <a href="/jobs?job_type=contract" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
+                    <div class="text-4xl mb-3 text-center">📝</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Contract</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">650 jobs</p>
+                </a>
+                
+                <a href="/jobs?job_type=internship" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
+                    <div class="text-4xl mb-3 text-center">🎓</div>
+                    <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Internship</h4>
+                    <p class="text-sm text-gray-500 text-center mt-1">540 jobs</p>
+                </a>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Jobs Section -->
+   <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                        Featured Opportunities
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Hand-picked jobs from top companies
+                    </p>
                 </div>
-                <div class="text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">2</span>
+                <a href="/jobs" class="hidden md:inline-block text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                    View All Jobs →
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                @forelse ($jobs as $job)
+                    <div class="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-blue-300 transition-all duration-300 group">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                                    {{ $job->title }}
+                                </h3>
+                                <p class="text-gray-600 font-medium">
+                                    {{ trim(($job->user->first_name ?? '') . ' ' . ($job->user->last_name ?? '')) ?: 'Unknown Company' }}
+                                </p>
+                            </div>
+                            <button class="text-gray-400 hover:text-blue-600 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-gray-600 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                {{ $job->location }}
+                            </div>
+                            <div class="flex items-center text-gray-600 text-sm">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                {{ ucfirst($job->job_type) }}
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                            <p class="text-blue-600 font-bold text-lg">${{ number_format($job->salary) }}</p>
+                            <a href="/jobs/{{ $job->id }}"
+                            class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                Apply
+                            </a>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-xl mb-2">Search & Apply</h3>
-                    <p class="text-gray-600">Browse thousands of jobs and apply with one click</p>
+                @empty
+                    <p class="col-span-3 text-center text-gray-500">No jobs found.</p>
+                @endforelse
+            </div>
+
+            <div class="text-center mt-12 md:hidden">
+                <a href="/jobs" class="inline-block text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                    View All Jobs →
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- How It Works - Dual Flow -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    How It Works
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Get started in three simple steps
+                </p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-12">
+                <div class="inline-flex bg-white rounded-xl p-1 shadow-md">
+                    <button class="px-8 py-3 rounded-lg font-semibold bg-blue-600 text-white transition-all" id="jobSeekersTab">
+                        For Job Seekers
+                    </button>
+                    <button class="px-8 py-3 rounded-lg font-semibold text-gray-600 hover:text-gray-900 transition-all" id="employersTab">
+                        For Employers
+                    </button>
                 </div>
-                <div class="text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-2xl font-bold text-blue-600">3</span>
+            </div>
+
+            <!-- Job Seekers Flow -->
+            <div id="jobSeekersContent" class="max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">1</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Create Your Profile</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Sign up in minutes and showcase your skills, experience, and career goals with our easy profile builder.
+                        </p>
                     </div>
-                    <h3 class="font-bold text-xl mb-2">Get Hired</h3>
-                    <p class="text-gray-600">Connect with employers and land your dream job</p>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">2</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Search & Apply</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Browse thousands of opportunities, get personalized recommendations, and apply with one click.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">3</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Get Hired</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Connect directly with hiring managers, track your applications, and land your dream job.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employers Flow (Hidden by default) -->
+            <div id="employersContent" class="max-w-5xl mx-auto hidden">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">1</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Post Your Job</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Create detailed job listings that attract qualified candidates. Include salary, benefits, and requirements.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">2</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Review Candidates</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Access qualified candidates, review profiles and resumes, and use our filtering tools to find the best fit.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-3xl font-bold text-white">3</span>
+                        </div>
+                        <h3 class="font-bold text-xl mb-3 text-center text-gray-900">Hire Top Talent</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Schedule interviews, communicate directly with candidates, and build your dream team faster.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            // Tab switching functionality
+            const jobSeekersTab = document.getElementById('jobSeekersTab');
+            const employersTab = document.getElementById('employersTab');
+            const jobSeekersContent = document.getElementById('jobSeekersContent');
+            const employersContent = document.getElementById('employersContent');
+
+            jobSeekersTab.addEventListener('click', () => {
+                jobSeekersTab.classList.add('bg-blue-600', 'text-white');
+                jobSeekersTab.classList.remove('text-gray-600');
+                employersTab.classList.remove('bg-blue-600', 'text-white');
+                employersTab.classList.add('text-gray-600');
+                jobSeekersContent.classList.remove('hidden');
+                employersContent.classList.add('hidden');
+            });
+
+            employersTab.addEventListener('click', () => {
+                employersTab.classList.add('bg-blue-600', 'text-white');
+                employersTab.classList.remove('text-gray-600');
+                jobSeekersTab.classList.remove('bg-blue-600', 'text-white');
+                jobSeekersTab.classList.add('text-gray-600');
+                employersContent.classList.remove('hidden');
+                jobSeekersContent.classList.add('hidden');
+            });
+        </script>
     </section>
 
     <!-- Testimonials -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4max-w-6xl">
-            <h2 class="text-3xl font-bold text-center mb-12">What Our Users Say</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="text-gray-700 mb-4">"Found my dream job within 2 weeks of signing up. The platform is easy to use and has great opportunities."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-                        <div>
-                            <p class="font-semibold">Sarah Johnson</p>
-                            <p class="text-sm text-gray-600">Software Engineer</p>
-                        </div>
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Success Stories
+                </h2>
+                <p class="text-lg text-gray-600">
+                    See what our users have to say
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg border border-blue-100">
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
                     </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="text-gray-700 mb-4">"The job matching algorithm is incredible! I received relevant opportunities that perfectly aligned with my skills and experience."</p>
+                    <p class="text-gray-700 mb-6 leading-relaxed italic">
+                        "Found my dream job within 2 weeks of signing up. The platform is intuitive and the job matching is spot-on. Couldn't be happier!"
+                    </p>
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold text-lg">
+                            SJ
+                        </div>
                         <div>
-                            <p class="font-semibold">Michael Chen</p>
-                            <p class="text-sm text-gray-600">Product Manager</p>
+                            <p class="font-semibold text-gray-900">Sarah Johnson</p>
+                            <p class="text-sm text-gray-600">Software Engineer at TechCorp</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="text-gray-700 mb-4">"Transitioning careers seemed daunting, but this platform made it possible. I landed a role in tech within a month!"</p>
+                <div class="bg-gradient-to-br from-purple-50 to-white p-8 rounded-xl shadow-lg border border-purple-100">
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed italic">
+                        "The job recommendations were incredibly accurate. I received opportunities that perfectly matched my skills and career goals. Highly recommend!"
+                    </p>
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mr-4 flex items-center justify-center text-white font-bold text-lg">
+                            MC
+                        </div>
                         <div>
-                            <p class="font-semibold">David Park</p>
-                            <p class="text-sm text-gray-600">Data Analyst</p>
+                            <p class="font-semibold text-gray-900">Michael Chen</p>
+                            <p class="text-sm text-gray-600">Product Manager at StartupCo</p>
                         </div>
                     </div>
                 </div>
-                <!-- Add more testimonials -->
+
+                <div class="bg-gradient-to-br from-green-50 to-white p-8 rounded-xl shadow-lg border border-green-100">
+                    <div class="flex mb-4">
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed italic">
+                        "Transitioning careers felt impossible until I found this platform. I landed a tech role within a month. The resources and support were invaluable."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full mr-4 flex items-center justify-center text-white font-bold text-lg">
+                            DP
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900">David Park</p>
+                            <p class="text-sm text-gray-600">Data Analyst at Analytics Pro</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="bg-gradient-to-r from-gray-50 to-blue-300 text-gray-900 py-20">
+    <!-- Career Resources Preview -->
+    <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-4">Ready to Get Started?</h2>
-            <p class="text-xl mb-8">Join thousands of job seekers finding their perfect match</p>
-            <div class="flex gap-4 justify-center">
-                <a href="/register" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">Sign Up Now</a>
-                <a href="/jobs" class="border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700">Browse Jobs</a>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Career Resources
+                </h2>
+                <p class="text-lg text-gray-600">
+                    Expert advice to help you succeed
+                </p>
+            </div>
+
+            
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <a href="/resources/resume-tips" class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
+                            Resume Writing Guide
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            Learn how to craft a resume that gets you noticed by recruiters and hiring managers.
+                        </p>
+                        <span class="text-blue-600 font-semibold group-hover:underline">
+                            Read More →
+                        </span>
+                    </div>
+                </a>
+
+                <a href="/resources/interview-prep" class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-gray-900 group-hover:text-purple-600 transition-colors">
+                            Interview Preparation
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            Master common interview questions and learn strategies to make a lasting impression.
+                        </p>
+                        <span class="text-purple-600 font-semibold group-hover:underline">
+                            Read More →
+                        </span>
+                    </div>
+                </a>
+
+                <a href="/resources/salary-guide" class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-white opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2 text-gray-900 group-hover:text-green-600 transition-colors">
+                            Salary Negotiation Tips
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            Discover how to negotiate your salary and benefits package with confidence.
+                        </p>
+                        <span class="text-green-600 font-semibold group-hover:underline">
+                            Read More →
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Logos / Social Proof -->
+    <section class="py-16 bg-white border-y">
+        <div class="container mx-auto px-4">
+            <p class="text-center text-gray-600 mb-8 font-semibold">
+                TRUSTED BY LEADING COMPANIES
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
+                <div class="text-3xl font-bold text-gray-800">TechCorp</div>
+                <div class="text-3xl font-bold text-gray-800">F1soft</div>
+                <div class="text-3xl font-bold text-gray-800">Esewa</div>
+                <div class="text-3xl font-bold text-gray-800">GlobalTech</div>
+                <div class="text-3xl font-bold text-gray-800">FutureSoft</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section class="relative bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 text-white py-24">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                Ready to Take the Next Step?
+            </h2>
+            <p class="text-xl md:text-2xl mb-10 text-blue-100">
+                Join thousands of professionals who found their dream job through our platform
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/register" class="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1">
+                    Create Free Account
+                </a>
+                <a href="/jobs" class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 hover:-translate-y-1">
+                    Browse All Jobs
+                </a>
             </div>
         </div>
     </section>

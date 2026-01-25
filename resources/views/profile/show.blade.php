@@ -69,13 +69,15 @@
                 </svg>
                 Edit Profile
             </a>
-                    <a href="{{ route('jobseeker.cv.download', $user) }}"
-                       class="inline-flex items-center px-4 py-2 bg-indigo-600 text-sm font-semibold text-white rounded-lg hover:bg-indigo-700 shadow-sm transition">
+            @if(!$user->isEmployer() && $user->jobseekerProfile)
+                <a href="{{ route('jobseeker.cv.download', $user) }}"
+                    class="inline-flex items-center px-4 py-2 bg-indigo-600 text-sm font-semibold text-white rounded-lg hover:bg-indigo-700 shadow-sm transition">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                         </svg>
                         Download CV
-                    </a>
+                </a>
+            @endif
 
             {{-- <a href="{{ route('password.edit') }}" 
                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm transition">
@@ -87,11 +89,8 @@
 
             @if($user->isEmployer())
             <a href="/jobs/create" 
-               class="inline-flex items-center px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium text-white hover:bg-indigo-700 shadow-sm transition">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                Create New Job
+               class="inline-flex items-center px-4 py-2 bg-indigo-600 rounded-lg text-sm font-medium text-white hover:bg-indigo-700 shadow-sm transition">    
+                Post a Job
             </a>
             @endif
         </div>

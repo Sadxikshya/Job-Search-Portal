@@ -4,6 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>CV - {{ $user->first_name }} {{ $user->last_name }}</title>
     <style>
+
+        @page {
+            margin: 0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -24,12 +29,12 @@
         
         /* Header Section */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background-color: #fff; /* NO gradients */
+            color: #333;
             padding: 30px;
-            margin: -30px -40px 30px -40px;
             text-align: center;
         }
+
         
         .header h1 {
             font-size: 28px;
@@ -61,7 +66,7 @@
         .section-title {
             font-size: 14px;
             font-weight: bold;
-            color: #667eea;
+            color: #333;
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 2px solid #667eea;
@@ -89,7 +94,7 @@
         
         .info-grid .label {
             font-weight: bold;
-            color: #667eea;
+            color: #333;
             width: 140px;
         }
         
@@ -104,8 +109,8 @@
         
         .skill-tag {
             display: inline-block;
-            background: #f0f4ff;
-            color: #667eea;
+            background: #fff;
+            color: #333;
             padding: 6px 12px;
             margin: 3px 5px 3px 0;
             border-radius: 15px;
@@ -116,8 +121,8 @@
         /* Experience Level Badge */
         .experience-badge {
             display: inline-block;
-            background: #667eea;
-            color: white;
+            background: #fff;
+            color: #333;
             padding: 4px 12px;
             border-radius: 12px;
             font-size: 11px;
@@ -144,7 +149,7 @@
         .contact-icon {
             display: inline-block;
             width: 20px;
-            color: #667eea;
+            color: #333;
             font-weight: bold;
         }
         
@@ -236,13 +241,14 @@
         @if($profile->skills)
         <div class="section">
             <div class="section-title">Skills & Expertise</div>
-            <div class="skills-container">
+            <ul class="skills-list">
                 @foreach(explode(',', $profile->skills) as $skill)
-                    <span class="skill-tag">{{ trim($skill) }}</span>
+                    <li>{{ trim($skill) }}</li>
                 @endforeach
-            </div>
+            </ul>
         </div>
         @endif
+
 
         <!-- Contact Information -->
         <div class="section">

@@ -9,8 +9,8 @@
 
 <a {{ $attributes->merge([
     'class' => $active 
-        ? 'inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-sm hover:bg-blue-700 transition-colors duration-200' 
-        : 'inline-flex items-center px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 hover:border-gray-400 transition-colors duration-200'
+        ? 'relative inline-flex items-center px-4 py-2.5 text-sm font-semibold text-blue-600 transition-all duration-200 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-blue-600' 
+        : 'relative inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-blue-600 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full'
 ]) }}>
     {{ $slot }}
 </a>

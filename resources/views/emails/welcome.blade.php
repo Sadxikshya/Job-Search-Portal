@@ -21,11 +21,6 @@
         <li>Manage your profile</li>
     </ul>
 
-    @component('mail::button', ['url' => url('/')])
-    Job Search
-    @endcomponent
-
-
     <p>
          We are excited to have you!
     </p>

@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobSeekerProfileController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\HomeController;
 
 use Illuminate\Support\Facades\Mail;
 
@@ -24,7 +25,7 @@ Route::get('test',function()
     return 'done';
 });
 
-Route::view('/','home');
+Route::get('/', [HomeController::class, 'index']);
 Route::view('/contact','contact');
 Route::get('/jobs', [JobController::class,'index']);
 Route::get('/jobs/create',[JobController::class, 'create'])->middleware('auth');
