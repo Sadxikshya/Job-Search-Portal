@@ -6,7 +6,7 @@
     <div class="max-w-6xl mx-auto space-y-6">
         
         <!-- Profile Header Card -->
-        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg overflow-hidden">
+        <div class="relative text-white overflow-hidden"  style="background-color: rgba(59,130,246,.5);">
             <div class="px-6 py-8 sm:px-8">
                 <div class="flex items-center space-x-4">
                     <!-- Avatar -->

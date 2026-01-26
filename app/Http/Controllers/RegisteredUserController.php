@@ -29,7 +29,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create($attributes);
 
-        // ✅ FIRE EVENT
+        // FIRE EVENT
         event(new UserRegistered($user));
 
 

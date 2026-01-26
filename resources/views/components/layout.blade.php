@@ -29,13 +29,13 @@
 <div class="min-h-full">
   <!-- Modern Navigation Bar -->
   <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Logo Section -->
         <div class="flex items-center">
           <div class="shrink-0">
             <a href="/" class="flex items-center space-x-2 group">
-              <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform duration-200">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center transform group-hover:scale-105 transition-transform duration-200"  style="background-color: rgba(59,130,246,.5);">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
@@ -73,7 +73,7 @@
 
             @auth
                 @if (auth()->user()->isEmployer()) 
-                  <a href="/jobs/create" class="bg-blue-600 text-white hover:bg-blue-700 px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-md hover:shadow-lg">
+                  <a href="/jobs/create" class="bg-blue-400 text-white hover:bg-blue-700 px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 shadow-md hover:shadow-lg">
                     Post a Job
                   </a>
                 @endif
@@ -89,24 +89,11 @@
         </div>
       </div>
     </div>
-
-
   </nav>
-
-  <!-- Page Header (if needed for inner pages) -->
-  @if(isset($heading))
-  <header class="bg-white border-b border-gray-200">
-    <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-      <h1 class="text-2xl font-bold tracking-tight text-gray-900">{{$heading}}</h1>
-    </div>
-  </header>
-  @endif
 
   <!-- Main Content -->
   <main>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      {{$slot}}
-    </div>
+    {{$slot}}
   </main>
 </div>
 

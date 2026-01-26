@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         | 1. Create Employers
         |--------------------------------------------------------------------------
         */
-        $employers = User::factory(5)
+        $employers = User::factory(8)
             ->employer()
             ->create();
 
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         | 2. Create Jobseekers
         |--------------------------------------------------------------------------
         */
-        $jobseekers = User::factory(10)
+        $jobseekers = User::factory(120)
             ->jobseeker()
             ->create();
 
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
         foreach ($jobseekers as $jobseeker) {
 
             // Each jobseeker applies to 3–7 unique jobs
-            $jobsToApply = $jobs->random(rand(3, 7));
+            $jobsToApply = $jobs->random(rand(6, 12));
 
             foreach ($jobsToApply as $job) {
                 JobApplication::firstOrCreate(

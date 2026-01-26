@@ -23,10 +23,10 @@ class JobFactory extends Factory
         return [
             'user_id' => User::factory()->employer(), // employer
             'title' => fake()->jobTitle(),
-            'description' => fake()->paragraph(45),
+            'description' => fake()->paragraph(20),
             'location' => fake()->city(),
             'job_type' => fake()->randomElement($types),
-            'salary' => fake()->numberBetween(30000, 120000),
+            'salary' => fake()->numberBetween(10000, 120000),
             'education' => fake()->randomElement([
                 'High School',
                 'Diploma',

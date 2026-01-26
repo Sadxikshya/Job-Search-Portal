@@ -3,52 +3,108 @@
         Home Page
     </x-slot:heading>
 
-    <!-- Hero Section with Search -->
-    <section class="relative bg-gradient-to-br from-blue-600 via-blue-500/600/indigo-600 text-white py-40 md:py-10">
-        <div class="absolute inset-0 bg-black opacity-10"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                    Find Your Next Opportunity Faster
-                </h1>
-                <p class="text-xl md:text-2xl mb-10 text-blue-100">
-                    Connect with top employers and discover opportunities that match your skills
-                </p>
-                
-                <!-- Job Search Bar -->
-                {{-- <div class="bg-white rounded-xl shadow-2xl p-4 md:p-6">
-                    <form class="flex flex-col md:flex-row gap-3">
-                        <div class="flex-1">
-                            <input 
-                                type="text" 
-                                placeholder="Job title, keywords, or company" 
-                                class="w-full px-4 py-4 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                            />
-                        </div>
-                        <div class="flex-1">
-                            <input 
-                                type="text" 
-                                placeholder="City, state, or remote" 
-                                class="w-full px-4 py-4 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                            />
-                        </div>
-                        <button 
-                            type="submit" 
-                            class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap"
-                        >
-                            Search Jobs
-                        </button>
-                    </form>
-                </div> --}}
+    <!-- Hero Section -->
+    <section class="relative text-white overflow-hidden" style="background-color: rgba(59,130,246,.5);">
+        <!-- Subtle animated background -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
 
-                <!-- Employer CTA -->
-                <div class="mt-8">
-                    <a href="/jobs/create" class="inline-flex items-center text-white hover:text-blue-100 transition-colors">
-                        <span class="text-lg">Are you hiring?</span>
-                        <span class="ml-2 font-semibold border-b-2 border-white">Post a Job →</span>
-                    </a>
+        <div class="container mx-auto px-4 py-16 md:py-20 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <!-- Content -->
+                <div class="text-center space-y-6">
+                    <!-- Badge -->
+                    <div class="inline-block">
+                        <div class="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span class="text-sm font-medium">{{ number_format($stats['active_jobs']) }}+opportunities available</span>
+                        </div>
+                    </div>
+
+                    <!-- Headline -->
+                    <div class="space-y-3">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                            Your Dream Job
+                            <span class="block bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
+                                Starts Here
+                            </span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-blue-50 max-w-2xl mx-auto">
+                            Discover opportunities at top companies and take the next step in your career journey
+                        </p>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    {{-- <div class="mt-12 max-w-4xl mx-auto">
+                        <div class="bg-white rounded-xl shadow-2xl p-2">
+                            <form class="flex flex-col md:flex-row gap-2">
+                                <div class="flex-1">
+                                    <input 
+                                        type="text" 
+                                        placeholder="Job title, keywords, or company" 
+                                        class="w-full px-5 py-4 text-gray-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    />
+                                </div>
+                                <div class="flex-1">
+                                    <input 
+                                        type="text" 
+                                        placeholder="City, state, or remote" 
+                                        class="w-full px-5 py-4 text-gray-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    />
+                                </div>
+                                <button 
+                                    type="submit" 
+                                    class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-10 py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                                >
+                                    Search Jobs
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+                            <span class="text-blue-100">Trending:</span>
+                            <a href="#" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full transition-colors">Remote Work</a>
+                            <a href="#" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full transition-colors">Engineering</a>
+                            <a href="#" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full transition-colors">Marketing</a>
+                            <a href="#" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-full transition-colors">Product Design</a>
+                        </div>
+                    </div> --}}
+
+                    <!-- CTA & Stats -->
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
+                        <!-- Employer CTA -->
+                        <a href="/jobs/create" class="group flex items-center gap-3 bg-white/10 hover:bg-white/15 backdrop-blur-sm px-6 py-3 rounded-lg border border-white/20 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span>For Employers:</span>
+                            <span class="font-semibold group-hover:underline">Post a Job →</span>
+                        </a>
+
+                        <!-- Stats -->
+                        <div class="flex items-center gap-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold">{{ number_format($stats['job_seekers']) }}+</div>
+                                <div class="text-sm text-blue-100">Job Seekers</div>
+                            </div>
+                            <div class="h-8 w-px bg-white/30"></div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold"> {{ number_format($stats['companies']) }}+</div>
+                                <div class="text-sm text-blue-100">Companies</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Bottom wave -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+                <path d="M0 80L60 73.3C120 66.7 240 53.3 360 46.7C480 40 600 40 720 46.7C840 53.3 960 66.7 1080 70C1200 73.3 1320 66.7 1380 63.3L1440 60V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z" fill="white" fill-opacity="0.1"/>
+            </svg>
         </div>
     </section>
 
@@ -56,25 +112,39 @@
     <section class="py-16 bg-white border-b">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+
                 <div class="text-center">
-                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">10,000+</h3>
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                        {{ number_format($stats['active_jobs']) }}+
+                    </h3>
                     <p class="text-gray-600 text-sm md:text-base">Active Jobs</p>
                 </div>
+
                 <div class="text-center">
-                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">5,000+</h3>
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                        {{ number_format($stats['companies']) }}+
+                    </h3>
                     <p class="text-gray-600 text-sm md:text-base">Companies Hiring</p>
                 </div>
+
                 <div class="text-center">
-                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">50,000+</h3>
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                        {{ number_format($stats['job_seekers']) }}+
+                    </h3>
                     <p class="text-gray-600 text-sm md:text-base">Active Job Seekers</p>
                 </div>
+
                 <div class="text-center">
-                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">8,000+</h3>
+                    <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                        {{ number_format($stats['successful_hires']) }}+
+                    </h3>
                     <p class="text-gray-600 text-sm md:text-base">Successful Hires</p>
                 </div>
+
             </div>
         </div>
     </section>
+
 
     <!-- Popular Job Categories -->
     {{-- <section class="py-20 bg-gray-50">
@@ -144,25 +214,25 @@
                 <a href="/jobs?job_type=full-time" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
                     <div class="text-4xl mb-3 text-center">💼</div>
                     <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Full-TIme</h4>
-                    <p class="text-sm text-gray-500 text-center mt-1">1,200 jobs</p>
+                    <p class="text-sm text-gray-500 text-center mt-1">{{ number_format($stats['full_time']) }}+ jobs</p>
                 </a>
                 
                 <a href="/jobs?job_type=part-time" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
                     <div class="text-4xl mb-3 text-center">⏰</div>
                     <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Part-Time</h4>
-                    <p class="text-sm text-gray-500 text-center mt-1">890 jobs</p>
+                    <p class="text-sm text-gray-500 text-center mt-1">{{ number_format($stats['part_time']) }}+ jobs </p>
                 </a>
                 
                 <a href="/jobs?job_type=contract" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
                     <div class="text-4xl mb-3 text-center">📝</div>
                     <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Contract</h4>
-                    <p class="text-sm text-gray-500 text-center mt-1">650 jobs</p>
+                    <p class="text-sm text-gray-500 text-center mt-1">{{ number_format($stats['contract']) }}+ jobs</p>
                 </a>
                 
                 <a href="/jobs?job_type=internship" class="group bg-white p-6 rounded-xl hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 w-40">
                     <div class="text-4xl mb-3 text-center">🎓</div>
                     <h4 class="font-semibold text-center text-gray-900 group-hover:text-blue-600 transition-colors">Internship</h4>
-                    <p class="text-sm text-gray-500 text-center mt-1">540 jobs</p>
+                    <p class="text-sm text-gray-500 text-center mt-1">{{ number_format($stats['internship']) }}+ jobs</p>
                 </a>
             
             </div>
@@ -482,7 +552,7 @@
     </section>
 
     <!-- Career Resources Preview -->
-    <section class="py-20 bg-gray-50">
+    {{-- <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -554,7 +624,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Company Logos / Social Proof -->
     <section class="py-16 bg-white border-y">
@@ -563,17 +633,16 @@
                 TRUSTED BY LEADING COMPANIES
             </p>
             <div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
-                <div class="text-3xl font-bold text-gray-800">TechCorp</div>
+                <div class="text-3xl font-bold text-gray-800">Techie</div>
                 <div class="text-3xl font-bold text-gray-800">F1soft</div>
-                <div class="text-3xl font-bold text-gray-800">Esewa</div>
-                <div class="text-3xl font-bold text-gray-800">GlobalTech</div>
+                <div class="text-3xl font-bold text-gray-800">Esewa Tour and Travels</div>
                 <div class="text-3xl font-bold text-gray-800">FutureSoft</div>
             </div>
         </div>
     </section>
 
     <!-- Final Call to Action -->
-    <section class="relative bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 text-white py-24">
+    <section class="relative text-white py-24" style="background-color: rgba(59,130,246,.5);">
         <div class="absolute inset-0 bg-black opacity-10"></div>
         <div class="container mx-auto px-4 text-center relative z-10 max-w-4xl">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">
@@ -592,5 +661,4 @@
             </div>
         </div>
     </section>
-    
 </x-layout>
