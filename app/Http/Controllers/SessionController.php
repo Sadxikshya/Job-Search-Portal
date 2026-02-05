@@ -15,25 +15,25 @@ class SessionController extends Controller
        return view('auth.login');
     }
 
-    public function store() 
-    {
-        $attributes = request()->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]); 
+    // public function store() 
+    // {
+    //     $attributes = request()->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //     ]); 
 
-        if (!Auth::attempt($attributes)){
-            throw ValidationException::withMessages([
-                'email'=> 'Sorry the creds do not match opps!!'
-            ]);
-        };
+    //     if (!Auth::attempt($attributes)){
+    //         throw ValidationException::withMessages([
+    //             'email'=> 'Sorry the creds do not match opps!!'
+    //         ]);
+    //     };
 
-        //regenrating the sesssion token
+    //     //regenrating the sesssion token
 
-        request()->session()->regenerate();
+    //     request()->session()->regenerate();
 
-        return redirect('/jobs');
-    }
+    //     return redirect('/jobs');
+    // }
 
     public function destroy() 
     {

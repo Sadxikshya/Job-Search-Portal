@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Mail;
 //     return view('home');      
 // });
 
-Route::get('test',function()
-{
-    $job= Job::first();
-    TranslateJob::dispatch($job);
-    return 'done';
-});
+// Route::get('test',function()
+// {
+//     $job= Job::first();
+//     TranslateJob::dispatch($job);
+//     return 'done';
+// });
 
 Route::get('/', [HomeController::class, 'index']);
 Route::view('/contact','contact');
@@ -47,10 +47,10 @@ Route::delete('/jobs/{job}', [JobController::class,'destroy'])
 //auth routes
 
 Route::get('/register',[RegisteredUserController::class,'create']);
-Route::post('/register',[RegisteredUserController::class,'store']);
+// Route::post('/register',[RegisteredUserController::class,'store']);
 
 Route::get('/login',[SessionController::class,'create'])->name(('login'));
-Route::post('/login',[SessionController::class,'store']);
+// Route::post('/login',[SessionController::class,'store']);
 Route::post('/logout',[SessionController::class,'destroy']);
 
 
@@ -58,7 +58,6 @@ Route::get('/profile', [ProfileController::class, 'show'])->middleware('auth');
 
 
 Route::post('/jobs/{job}/apply', function (Job $job) {
-    // later we’ll save applications here
         return back()->with('success', 'Applied successfully!');
     })  ->middleware('auth')
         ->can('apply', 'job');

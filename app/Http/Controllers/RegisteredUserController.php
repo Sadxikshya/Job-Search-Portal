@@ -15,30 +15,30 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function store ()
-    {
-        $attributes = request()->validate([
-            'first_name' => ['required', 'min:1'],
-            'last_name' => ['required', 'min:1'],
-            'email' => ['required', 'email','unique:users'], //duplicate user prevent garna lai unique users
-            'password' => ['required', 'confirmed', Password::min(6)],
-            'role_type' => 'required|string|in:employer,jobseeker', 
-        ]);
+    // public function store ()
+    // {
+    //     $attributes = request()->validate([
+    //         'first_name' => ['required', 'min:1'],
+    //         'last_name' => ['required', 'min:1'],
+    //         'email' => ['required', 'email','unique:users'], //duplicate user prevent garna lai unique users
+    //         'password' => ['required', 'confirmed', Password::min(6)],
+    //         'role_type' => 'required|string|in:employer,jobseeker', 
+    //     ]);
 
-        $attributes['password'] = bcrypt($attributes['password']);
+    //     $attributes['password'] = bcrypt($attributes['password']);
 
-        $user = User::create($attributes);
+    //     $user = User::create($attributes);
 
-        // FIRE EVENT
-        event(new UserRegistered($user));
+    //     // FIRE EVENT
+    //     event(new UserRegistered($user));
 
 
-        // Mail::to($user->email)->send(new WelcomeMail($user)); //very slow loading of ppage because of mail sending
+    //     // Mail::to($user->email)->send(new WelcomeMail($user)); //very slow loading of ppage because of mail sending
 
-        Auth::login($user);
+    //     Auth::login($user);
 
-        return redirect('/login');
-    }
+    //     return redirect('/login');
+    // }
 
     public function edit()
     {

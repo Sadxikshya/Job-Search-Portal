@@ -5,7 +5,7 @@
 
     <div class="mx-auto max-w-md">
         <div class="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-            <form method="POST" action="/login" class="px-4 py-6 sm:p-8">
+            <form id="loginForm" class="px-4 py-6 sm:p-8">
                 @csrf
                 
                 <div class="space-y-6">
@@ -18,6 +18,31 @@
                         </p>
                     </div>
 
+                    <!-- Loading indicator -->
+                    <div id="loadingIndicator" class="hidden p-4 bg-blue-50 rounded-md">
+                        <div class="flex items-center">
+                            <svg class="animate-spin h-5 w-5 text-blue-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="text-sm text-blue-700">Signing you in...</span>
+                        </div>
+                    </div>
+
+                    <!-- Error container -->
+                    <div id="errorContainer" class="hidden p-4 bg-red-50 rounded-md">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p id="errorMessage" class="text-sm text-red-700"></p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="space-y-5">
                         <x-form-field>
                             <x-form-label for="email">Email Address</x-form-label>
@@ -26,21 +51,17 @@
                                     id="email" 
                                     name="email" 
                                     type="email" 
-                                    :value="old('email')" 
                                     placeholder="example@gmail.com" 
                                     required 
                                     autofocus
                                 />
-                                <x-form-error name="email"/>
+                                <p class="error-message text-sm text-red-600 mt-1 hidden" data-field="email"></p>
                             </div>
                         </x-form-field>
 
                         <x-form-field>
                             <div class="flex items-center justify-between">
                                 <x-form-label for="password">Password</x-form-label>
-                                {{-- <a href="/forgot-password" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-                                    Forgot password?
-                                </a> --}}
                             </div>
                             <div class="mt-2">
                                 <x-form-input 
@@ -49,15 +70,15 @@
                                     type="password" 
                                     required
                                 />
-                                <x-form-error name="password"/>
+                                <p class="error-message text-sm text-red-600 mt-1 hidden" data-field="password"></p>
                             </div>
                         </x-form-field>
                     </div>
 
                     <div>
-                        <x-form-button class="w-full justify-center">
+                        <button type="submit" id="submitBtn" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                             Sign In
-                        </x-form-button>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -79,4 +100,78 @@
             </p>
         </div>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.classList.add('hidden');
+                el.textContent = '';
+            });
+            document.getElementById('errorContainer').classList.add('hidden');
+            
+            // Show loading
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const submitBtn = document.getElementById('submitBtn');
+            loadingIndicator.classList.remove('hidden');
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+            };
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                        // Remove CSRF token for API routes
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store token and user info
+                    if (data.token) {
+                        localStorage.setItem('auth_token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                    }
+                    
+                    // Redirect based on user role
+                    window.location.href = '/jobs';
+                } else {
+                    // Handle errors
+                    if (data.errors) {
+                        Object.keys(data.errors).forEach(field => {
+                            const errorElement = document.querySelector(`[data-field="${field}"]`);
+                            if (errorElement) {
+                                errorElement.textContent = data.errors[field][0];
+                                errorElement.classList.remove('hidden');
+                            }
+                        });
+                    }
+                    
+                    if (data.message) {
+                        document.getElementById('errorMessage').textContent = data.message;
+                        document.getElementById('errorContainer').classList.remove('hidden');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').textContent = 'An unexpected error occurred. Please try again.';
+                document.getElementById('errorContainer').classList.remove('hidden');
+            } finally {
+                // Hide loading
+                loadingIndicator.classList.add('hidden');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 </x-layout>
