@@ -35,10 +35,21 @@ class SessionController extends Controller
     //     return redirect('/jobs');
     // }
 
-    public function destroy() 
+    public function destroy(Request $request) 
     {
-        Auth::logout();
+        $user=Auth::user();
 
+        if ($user){
+            $user->tokens()->delete(); //deleting all tokens for this user
+        }
+        // Logout from web session
+        Auth::logout();
+        
+        // Invalidate session
+        $request->session()->invalidate();
+        // Regenerate CSRF token
+        $request->session()->regenerateToken();
+        
         return redirect('/');
     }
 }

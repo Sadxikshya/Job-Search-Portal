@@ -78,9 +78,10 @@
                   </a>
                 @endif
                 
-                <form method="POST" action="/logout" class="inline-block">
+                <!-- Hybrid Logout: Handles both API and Web logout -->
+                <form method="POST" action="/logout" id="logoutForm" class="inline-block">
                   @csrf
-                  <button type="submit" class="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-colors duration-200">
+                  <button type="button" id="logoutBtn" class="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-colors duration-200">
                     Sign Out
                   </button>
                 </form>
@@ -98,8 +99,44 @@
 </div>
 
 <script>
+// Prevent file uploads in Trix editor
 document.addEventListener("trix-file-accept", function (event) {
     event.preventDefault();
+});
+
+// Logout handler
+document.getElementById('logoutBtn')?.addEventListener('click', async function(e) {
+    e.preventDefault();
+    
+    const token = localStorage.getItem('auth_token');
+    
+    if (token) {
+        // API logout
+        try {
+            const response = await fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+            
+            const data = await response.json();
+            console.log('Logout response:', data);
+            
+            // Clear localStorage
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    }
+    
+    // Always submit the form to clear session
+    document.getElementById('logoutForm').submit();
 });
 </script>
 

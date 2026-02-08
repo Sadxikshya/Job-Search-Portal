@@ -105,6 +105,8 @@
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            console.log('Login form submitted'); // Debug
+            
             // Clear previous errors
             document.querySelectorAll('.error-message').forEach(el => {
                 el.classList.add('hidden');
@@ -124,29 +126,46 @@
                 password: document.getElementById('password').value,
             };
             
+            console.log('Sending login request...'); // Debug
+            
             try {
                 const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                        // Remove CSRF token for API routes
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
+                    credentials: 'include', // Important: include cookies for session
                     body: JSON.stringify(formData)
                 });
                 
+                console.log('Response status:', response.status); // Debug
+                
                 const data = await response.json();
+                console.log('Response data:', data); // Debug
                 
                 if (data.success) {
-                    // Store token and user info
+                    // Store token in localStorage
                     if (data.token) {
                         localStorage.setItem('auth_token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
+                        console.log('Token stored:', data.token.substring(0, 20) + '...'); // Debug
                     }
                     
-                    // Redirect based on user role
-                    window.location.href = '/jobs';
+                    // Store user info
+                    if (data.user) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        console.log('User stored:', data.user.email); // Debug
+                    }
+                    
+                    console.log('Redirecting to /jobs...'); // Debug
+                    
+                    // Redirect - use window.location.replace for full page reload
+                    window.location.replace('/jobs');
+                    
                 } else {
+                    console.error('Login failed:', data); // Debug
+                    
                     // Handle errors
                     if (data.errors) {
                         Object.keys(data.errors).forEach(field => {

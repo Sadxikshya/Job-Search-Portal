@@ -144,6 +144,8 @@
         document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            console.log('Register form submitted'); // Debug
+            
             // Clear previous errors
             document.querySelectorAll('.error-message').forEach(el => {
                 el.classList.add('hidden');
@@ -167,33 +169,46 @@
                 role_type: document.getElementById('role_type').value,
             };
             
+            console.log('Sending registration request...'); // Debug
+            
             try {
                 const response = await fetch('/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                        // Remove CSRF token for API routes
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
+                    credentials: 'include', // Important: include cookies for session
                     body: JSON.stringify(formData)
                 });
                 
+                console.log('Response status:', response.status); // Debug
+                
                 const data = await response.json();
+                console.log('Response data:', data); // Debug
                 
                 if (data.success) {
-                    // Store token for future API calls
+                    // Store token in localStorage
                     if (data.token) {
                         localStorage.setItem('auth_token', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.user));
+                        console.log('Token stored'); // Debug
                     }
                     
-                    // Redirect based on role
-                    if (data.user.role_type === 'employer') {
-                        window.location.href = '/jobs';
-                    } else if (data.user.role_type === 'jobseeker') {
-                        window.location.href = '/jobs';
+                    // Store user info
+                    if (data.user) {
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        console.log('User stored:', data.user.email); // Debug
                     }
+                    
+                    console.log('Redirecting to /jobs...'); // Debug
+                    
+                    // Redirect - use window.location.replace for full page reload
+                    window.location.replace('/jobs');
+                    
                 } else {
+                    console.error('Registration failed:', data); // Debug
+                    
                     // Handle validation errors
                     if (data.errors) {
                         Object.keys(data.errors).forEach(field => {

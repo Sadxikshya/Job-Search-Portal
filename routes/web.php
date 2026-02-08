@@ -12,18 +12,6 @@ use App\Http\Controllers\JobSeekerProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\HomeController;
 
-use Illuminate\Support\Facades\Mail;
-
-// Route::get('/', function () {
-//     return view('home');      
-// });
-
-// Route::get('test',function()
-// {
-//     $job= Job::first();
-//     TranslateJob::dispatch($job);
-//     return 'done';
-// });
 
 Route::get('/', [HomeController::class, 'index']);
 Route::view('/contact','contact');
@@ -104,4 +92,11 @@ Route::get('/jobseeker/cv/download', [JobSeekerProfileController::class, 'downlo
     ->name('jobseeker.cv.own');
 
 
-
+Route::get('/debug-auth', function() {
+    return response()->json([
+        'authenticated' => Auth::check(),
+        'user' => Auth::user(),
+        'session_id' => session()->getId(),
+        'session_data' => session()->all(),
+    ]);
+})->middleware('web');

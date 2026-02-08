@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Register a new user
+     */
     public function register(Request $request)
     {
         try {
@@ -25,16 +27,15 @@ class AuthController extends Controller
             ]);
 
             $attributes['password'] = Hash::make($attributes['password']);
-
             $user = User::create($attributes);
 
             // Fire event
             event(new UserRegistered($user));
 
-            // Create token for API authentication
+            // Create token
             $token = $user->createToken('auth-token')->plainTextToken;
 
-            // Also log them in for web session
+            // Also log them in for web session (this creates the session)
             Auth::login($user);
 
             return response()->json([
@@ -50,9 +51,17 @@ class AuthController extends Controller
                 'message' => 'Validation failed',
                 'errors' => $e->errors(),
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Registration failed: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
+    /**
+     * Login user
+     */
     public function login(Request $request)
     {
         try {
@@ -61,6 +70,7 @@ class AuthController extends Controller
                 'password' => ['required'],
             ]);
 
+            // Attempt authentication
             if (!Auth::attempt($credentials)) {
                 return response()->json([
                     'success' => false,
@@ -71,7 +81,10 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            // Get authenticated user
             $user = Auth::user();
+            
+            // Create token
             $token = $user->createToken('auth-token')->plainTextToken;
 
             return response()->json([
@@ -87,23 +100,43 @@ class AuthController extends Controller
                 'message' => 'Validation failed',
                 'errors' => $e->errors(),
             ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Login failed: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
+    /**
+     * Logout user
+     */
     public function logout(Request $request)
     {
-        // Delete current access token
-        $request->user()->currentAccessToken()->delete();
-        
-        // Also logout from web session
-        Auth::logout();
+        try {
+            // Delete current access token
+            if ($request->user()) {
+                $request->user()->currentAccessToken()->delete();
+            }
+            
+            // Also logout from web session
+            Auth::logout();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logged out successfully',
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Logged out successfully',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Logout failed: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
+    /**
+     * Get current user
+     */
     public function me(Request $request)
     {
         return response()->json([
