@@ -3,18 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Job;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class JobController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
+    
     public function index(Request $request)
     {
+        $perPage = $request->get('per_page', 10); // Default 10, but allow override
+    
         $jobs = Job::with('user')
             ->when($request->filled('search'), fn($q) => $q->where('title', 'like', "%{$request->search}%"))
             ->when($request->filled('location'), fn($q) => $q->where('location', 'like', "%{$request->location}%"))
@@ -23,28 +29,20 @@ class JobController extends Controller
             ->when($request->filled('salary_max'), fn($q) => $q->where('salary', '<=', $request->salary_max))
             ->when($request->filled('experience_level'), fn($q) => $q->where('experience_level', $request->experience_level))
             ->latest()
-            ->paginate(10);
+            ->paginate($perPage);
 
         return response()->json($jobs);
+
 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
-         $validated = $request->validate([
-            'title' => 'required|min:3',
-            'salary' => 'required|numeric',
-            'description' => 'required|string',
-            'location' => 'required|string',
-            'job_type' => 'required|in:full-time,part-time,remote',
-            'education' => 'required|string|in:high-school,diploma,bachelor,master,phd',
-            'experience_level' => 'required|in:Entry Level,Mid Level,Senior Level,Lead/Manager',
-        ]);
-
-        $job = Auth::user()->jobs()->create($validated);
+    
+        $job = Auth::user()->jobs()->create($request->validated());
 
         return response()->json([
             'success' => true,
@@ -56,31 +54,22 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Job $job)
+    public function show($id)
     {
+        $job = Job::findOrFail($id);
         return response()->json([
-            'job' => $job->load('user')
+            'job' => $job
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(UpdateJobRequest $request, Job $job)
     {
-        $this->authorize('update', $job); // ensure owner can edit
+        $this->authorize('update', $job);
 
-        $validated = $request->validate([
-            'title' => 'required|min:3',
-            'salary' => 'required|numeric',
-            'description' => 'required|string',
-            'location' => 'required|string',
-            'job_type' => 'required|in:full-time,part-time,remote',
-            'education' => 'required|string|in:high-school,diploma,bachelor,master,phd',
-            'experience_level' => 'required|in:Entry Level,Mid Level,Senior Level,Lead/Manager',
-        ]);
-
-        $job->update($validated);
+        $job->update($request->validated());
 
         return response()->json([
             'success' => true,

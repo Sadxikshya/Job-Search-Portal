@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class Jobcontroller extends Controller
+class JobController extends Controller
 {
     public function index(Request $request)
     {
@@ -78,48 +81,32 @@ class Jobcontroller extends Controller
 
     }
 
-    public function store() 
+    public function store(StoreJobRequest $request) 
     {
-        $validated = request()->validate([
-            'title' => ['required', 'min:3'],
-            'salary' => ['required'],
-            'description' => ['required'],
-            'location' => ['required'],
-            'job_type' => ['required', 'in:full-time,part-time,remote'],
-            'education' => ['required', 'string', 'in:high-school,diploma,bachelor,master,phd'],
-            'experience_level' => ['required', 'in:Entry Level,Mid Level,Senior Level,Lead/Manager'],
-        ]);
-
-        Auth::user()->jobs()->create($validated);
+        Auth::user()->jobs()->create($request->validated());
 
         return redirect('/jobs');
     }
 
     public function edit(Job $job) 
     {     
+        // $this->authorize('update', $job);
         return view('jobs.edit', ['job' => $job]);
     }
 
-    public function update(Job $job) 
-    {    
-        $validated = request()->validate([
-        'title' => ['required', 'min:3'],
-        'salary' => ['required', 'numeric'],
-        'description' => ['required', 'string'],
-        'location' => ['required', 'string'],
-        'job_type' => ['required', 'in:full-time,part-time,remote'],
-        'education' => ['required', 'string', 'in:high-school,diploma,bachelor,master,phd'],
-        'experience_level' => ['required', 'in:Entry Level,Mid Level,Senior Level,Lead/Manager'],
-         ]);
+    public function update(UpdateJobRequest $request, Job $job) 
+    {
+        // $this->authorize('update', $job);
 
-        $job->update($validated);
+        $job->update($request->validated());
 
         return redirect('/jobs/' . $job->id)->with('success', 'Job updated successfully.');
-
     }
+
 
     public function destroy(Job $job)
     {
+        // $this->authorize('delete', $job);
         //no need to use findorfail because i have used route modelbinding in my routes
         $job->delete();
 

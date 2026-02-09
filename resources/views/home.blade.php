@@ -239,8 +239,8 @@
         </div>
     </section>
 
-    <!-- Featured Jobs Section -->
-   <section class="py-20 bg-white">
+   <!-- Featured Jobs Section -->
+    <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center mb-12">
                 <div>
@@ -262,10 +262,10 @@
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex-1">
                                 <h3 class="font-bold text-xl text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
-                                    {{ $job->title }}
+                                    {{ $job['title'] }}
                                 </h3>
                                 <p class="text-gray-600 font-medium">
-                                    {{ trim(($job->user->first_name ?? '') . ' ' . ($job->user->last_name ?? '')) ?: 'Unknown Company' }}
+                                    {{ trim(($job['user']['first_name'] ?? '') . ' ' . ($job['user']['last_name'] ?? '')) ?: 'Unknown Company' }}
                                 </p>
                             </div>
                             <button class="text-gray-400 hover:text-blue-600 transition-colors">
@@ -284,20 +284,20 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
-                                {{ $job->location }}
+                                {{ $job['location'] }}
                             </div>
                             <div class="flex items-center text-gray-600 text-sm">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
-                                {{ ucfirst($job->job_type) }}
+                                {{ ucfirst($job['job_type']) }}
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between pt-4 border-t border-gray-200">
-                            <p class="text-blue-600 font-bold text-lg">${{ number_format($job->salary) }}</p>
-                            <a href="/jobs/{{ $job->id }}"
+                            <p class="text-blue-600 font-bold text-lg">${{ number_format($job['salary']) }}</p>
+                            <a href="/jobs/{{ $job['id'] }}"
                             class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
                                 Apply
                             </a>
