@@ -6,31 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('jobs_listings', function (Blueprint $table) {
-            $table->index('title');
-            $table->index('location');
-            $table->index('job_type');
-            $table->index('experience_level');
-            $table->index('salary');
+            $table->fullText('title'); 
+            $table->index(['job_type','experience_level','location'],'jobs_filter_index');
+            $table->index('salary'); 
+            $table->index('created_at'); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('jobs_listings', function (Blueprint $table) {
-            $table->dropIndex(['title']);
-            $table->dropIndex(['location']);
-            $table->dropIndex(['job_type']);
-            $table->dropIndex(['experience_level']);
-            $table->dropIndex(['salary']);
+            $table->dropFullText(['title']);                     
+            $table->dropIndex('jobs_filter_index');             
+            $table->dropIndex(['salary']);                      
+            $table->dropIndex(['created_at']);                  
         });
     }
 };

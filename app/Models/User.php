@@ -42,6 +42,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function getNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+
      public function isEmployer(): bool
     {
         return $this->role_type === 'employer';

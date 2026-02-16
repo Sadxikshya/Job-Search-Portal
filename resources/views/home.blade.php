@@ -633,10 +633,10 @@
                 TRUSTED BY LEADING COMPANIES
             </p>
             <div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
-                <div class="text-3xl font-bold text-gray-800">Techie</div>
-                <div class="text-3xl font-bold text-gray-800">F1soft</div>
-                <div class="text-3xl font-bold text-gray-800">Esewa Tour and Travels</div>
-                <div class="text-3xl font-bold text-gray-800">FutureSoft</div>
+                <a href="https://hamrobazaar.com/" class="text-3xl font-bold text-gray-800">Hamro Bazar</a>
+                <a href="https://f1soft.com/"class="text-3xl font-bold text-gray-800">F1soft</a>
+                <a href="https://esewatravels.com/" class="text-3xl font-bold text-gray-800">Esewa Tour and Travels</a>
+                
             </div>
         </div>
     </section>
