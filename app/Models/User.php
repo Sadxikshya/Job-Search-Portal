@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Job;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
-
+use Filament\Panel;
 
 class User extends Authenticatable
 {
@@ -57,7 +57,16 @@ class User extends Authenticatable
     {
         return $this->role_type === 'jobseeker';
     }
-            
+
+    public function isAdmin(): bool
+    {
+        return $this->role_type === 'admin';
+    }
+
+   public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin();
+    }
 
     public function jobs():HasMany
     {

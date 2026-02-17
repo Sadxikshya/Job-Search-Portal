@@ -19,7 +19,7 @@ class HomeController extends Controller
         // Total jobs
         $activeJobs = Job::count();
 
-        // Users grouped by role_type (1 query instead of 2)
+        // Users grouped by role_type 
         $userCounts = User::select('role_type')
             ->selectRaw('COUNT(*) as total')
             ->groupBy('role_type')
@@ -49,9 +49,6 @@ class HomeController extends Controller
     }
 }
 
-
-
-    
     // // Calling API controllers directly instead of making HTTP requests
     //     $apiJobController = new ApiJobController();
     //     $statsController = new StatsController();
