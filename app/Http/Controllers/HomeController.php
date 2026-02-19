@@ -10,6 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $start = microtime(true);
+
         // Latest 3 jobs with employer
         $jobs = Job::with('user')
             ->latest()
@@ -44,6 +46,8 @@ class HomeController extends Controller
             'contract' => $jobTypeCounts['contract'] ?? 0,
             'internship' => $jobTypeCounts['internship'] ?? 0,
         ];
+        $end = microtime(true); // END TIMER
+        logger("Controller logic took: " . ($end - $start) . " seconds");
 
         return view('home', compact('jobs', 'stats'));
     }
