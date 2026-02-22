@@ -1,7 +1,6 @@
 <x-layout>
     <x-slot:heading>Home</x-slot:heading>
 
-    {{-- Page stylesheet — place home.css in public/css/home.css --}}
     <link rel="stylesheet" href="/css/home.css">
 
     {{-- ── HERO ────────────────────────────────────── --}}

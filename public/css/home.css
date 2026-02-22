@@ -1,10 +1,4 @@
-/*
- * home.css
- * Styles for the CareerHub home page.
- * CSS variables + fonts are loaded by layout.blade.php.
- * Link this file in home.blade.php via <link rel="stylesheet" href="/css/home.css">
- * Place this file in: public/css/home.css
- */
+
 
 /* ── Typography helper ── */
 .display {

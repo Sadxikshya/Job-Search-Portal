@@ -80,7 +80,10 @@
                 <a href="/jobs" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900">
                     Reset
                 </a>
-                <button class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                <button class="px-4 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+                        style="background-color: #7bbfda;"
+                        onmouseover="this.style.backgroundColor='#69a9c9'"
+                        onmouseout="this.style.backgroundColor='#7bbfda'">
                     Apply Filters
                 </button>
             </div>
@@ -126,7 +129,10 @@
                     </div>
 
                     <div class="flex items-center justify-between gap-2 pt-3 border-t border-gray-100">
-                        <a href="/jobs/{{ $job->id }}" class="px-3 py-1.5 bg-blue-400 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors text-center">
+                        <a href="/jobs/{{ $job->id }}"  class="px-3 py-1.5 bg-blue-400 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors text-center"
+                                                        style="background-color: #7bbfda;"
+                                                        onmouseover="this.style.backgroundColor='#69a9c9'"
+                                                        onmouseout="this.style.backgroundColor='#7bbfda'">
                             View Job
                         </a>
                         

@@ -1,0 +1,577 @@
+/*
+ * profile.css  —  Sidebar layout, home palette toned down
+ * Place in: public/css/profile.css
+ * Requires the same CSS variables + fonts loaded by layout.blade.php
+ */
+
+/* ============================================================
+   FULL-SCREEN SHELL
+============================================================ */
+.profile-shell {
+    display: flex;
+    min-height: calc(100vh - 60px); /* adjust to match your nav height */
+    background: var(--frost);
+}
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+.profile-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+/* Avatar */
+.sidebar-avatar {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.sidebar-avatar-img {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--mist);
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+.sidebar-avatar-initials {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--sky);
+    border: 2px solid var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--deep);
+    margin: 0 auto 1rem;
+}
+
+.sidebar-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: .25rem;
+}
+
+.sidebar-email {
+    font-size: .75rem;
+    color: var(--ghost);
+    text-align: center;
+    margin-bottom: .85rem;
+    word-break: break-all;
+}
+
+.sidebar-role-pill {
+    display: block;
+    width: fit-content;
+    margin: 0 auto .75rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--deep);
+    background: var(--sky);
+    border: 1px solid var(--mist);
+    border-radius: 999px;
+    padding: .25rem .75rem;
+}
+
+/* Stat chip (employer jobs count) */
+.sidebar-stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: .5rem;
+    background: var(--frost);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem;
+    color: var(--pool);
+    line-height: 1;
+}
+
+.sidebar-stat-lbl {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ghost);
+}
+
+/* Divider */
+.sidebar-sep {
+    height: 1px;
+    background: var(--border);
+    margin: 1.1rem 0;
+}
+
+/* Nav links */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    flex: 1;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .6rem .8rem;
+    border-radius: 9px;
+    font-size: .83rem;
+    font-weight: 500;
+    color: var(--body);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background .18s, color .18s, border-color .18s;
+}
+
+.sidebar-link:hover {
+    background: var(--frost);
+    color: var(--ink);
+}
+
+.sidebar-link.active {
+    background: var(--sky);
+    border-color: var(--mist);
+    color: var(--deep);
+    font-weight: 600;
+}
+
+.sidebar-link svg { flex-shrink: 0; color: var(--ghost); }
+.sidebar-link.active svg,
+.sidebar-link:hover svg { color: var(--pool); }
+
+/* CTA buttons in sidebar footer */
+.sidebar-footer {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+============================================================ */
+.profile-main {
+    flex: 1;
+    min-width: 0;
+    padding: 2rem 2.25rem;
+    overflow-y: auto;
+}
+
+/* Page section heading */
+.pm-eyebrow {
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--pool);
+    margin-bottom: .3rem;
+}
+
+.pm-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+}
+
+/* ============================================================
+   CARDS
+============================================================ */
+.pcard {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    transition: border-color .22s, box-shadow .22s;
+}
+.pcard:hover {
+    border-color: var(--mist);
+    box-shadow: 0 4px 20px rgba(123,191,212,.1);
+}
+
+.pcard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem 1.4rem;
+    background: var(--frost);
+    border-bottom: 1px solid var(--border);
+}
+
+.pcard-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+.pcard-body {
+    padding: 1.3rem 1.4rem;
+}
+
+.pcard-sep {
+    height: 1px;
+    background: var(--border);
+    margin: 1.1rem 0;
+}
+
+/* ============================================================
+   DETAIL GRID (professional info)
+============================================================ */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1.1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .7rem;
+}
+
+.detail-ico {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--sky);
+    border: 1px solid var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pool);
+    flex-shrink: 0;
+    margin-top: .1rem;
+}
+
+.detail-lbl {
+    font-size: .63rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ghost);
+    margin-bottom: .22rem;
+}
+
+.detail-val {
+    font-size: .87rem;
+    color: var(--ink);
+}
+
+.exp-badge {
+    display: inline-block;
+    padding: .22rem .65rem;
+    border-radius: 999px;
+    background: var(--sky);
+    border: 1px solid var(--mist);
+    font-size: .71rem;
+    font-weight: 700;
+    color: var(--deep);
+}
+
+/* ============================================================
+   SKILLS
+============================================================ */
+.skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+}
+
+.skill-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: .28rem .75rem;
+    border-radius: 999px;
+    background: var(--frost);
+    border: 1.5px solid var(--border);
+    font-size: .75rem;
+    font-weight: 500;
+    color: var(--body);
+    transition: border-color .18s, color .18s, background .18s;
+    cursor: default;
+}
+.skill-pill:hover {
+    border-color: var(--pool);
+    color: var(--deep);
+    background: var(--sky);
+}
+
+/* ============================================================
+   BIO
+============================================================ */
+.bio-text {
+    font-size: .87rem;
+    color: var(--body);
+    line-height: 1.8;
+}
+
+/* ============================================================
+   RESUME ROW
+============================================================ */
+.resume-row {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .9rem 1.1rem;
+    background: var(--frost);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    transition: border-color .18s;
+}
+.resume-row:hover { border-color: var(--mist); }
+
+.resume-ico {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: #e53e3e;
+    flex-shrink: 0;
+}
+
+.resume-name { font-size: .85rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.resume-type { font-size: .71rem; color: var(--ghost); margin-top: 1px; }
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+.pcard-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.pcard-empty svg { color: #d1d5db; margin-bottom: .9rem; }
+
+.pcard-empty h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: .4rem;
+}
+
+.pcard-empty p {
+    font-size: .84rem;
+    color: var(--ghost);
+    max-width: 340px;
+    line-height: 1.65;
+    margin-bottom: 1.1rem;
+}
+
+/* ============================================================
+   TABLE
+============================================================ */
+.table-scroll { overflow-x: auto; }
+
+.ptable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ptable thead th {
+    padding: .7rem 1.2rem;
+    text-align: left;
+    font-size: .63rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ghost);
+    background: var(--frost);
+    border-bottom: 1px solid var(--border);
+}
+
+.ptable tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .12s;
+}
+.ptable tbody tr:last-child { border-bottom: none; }
+.ptable tbody tr:hover { background: var(--frost); }
+
+.ptable td { padding: .8rem 1.2rem; vertical-align: middle; }
+
+.t-title { font-size: .87rem; font-weight: 600; color: var(--ink); }
+.t-sub   { font-size: .74rem; color: var(--ghost); margin-top: 1px; }
+.t-muted { font-size: .84rem; color: var(--ghost); }
+
+.salary-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: #276749;
+}
+
+/* Applicant count chip */
+.app-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .28rem .75rem;
+    border-radius: 7px;
+    background: var(--sky);
+    border: 1px solid var(--mist);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--deep);
+    text-decoration: none;
+    transition: background .18s;
+}
+.app-chip:hover { background: var(--mist); }
+
+/* Status */
+.status-pill {
+    display: inline-flex;
+    padding: .22rem .7rem;
+    border-radius: 999px;
+    font-size: .7rem;
+    font-weight: 700;
+}
+.status-accepted { background: #d1fae5; color: #065f46; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-pending,
+.status-applied  { background: #fef3c7; color: #92400e; }
+
+/* Action icons */
+.act-group { display: flex; align-items: center; justify-content: flex-end; gap: .3rem; }
+
+.act-btn {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; border: 1.5px solid var(--border);
+    cursor: pointer; background: #fff;
+    transition: background .15s, border-color .15s, transform .15s;
+}
+.act-btn:hover { transform: translateY(-1px); }
+
+.act-view   { color: var(--pool); }
+.act-view:hover   { background: var(--sky); border-color: var(--mist); }
+
+.act-edit   { color: #4338ca; }
+.act-edit:hover   { background: #eef2ff; border-color: #c7d2fe; }
+
+.act-del    { color: #b91c1c; }
+.act-del:hover    { background: #fee2e2; border-color: #fecaca; }
+
+/* View link */
+.view-link {
+    display: inline-flex; align-items: center; gap: .3rem;
+    font-size: .79rem; font-weight: 600;
+    color: var(--pool); text-decoration: none;
+    padding: .32rem .75rem; border-radius: 7px;
+    border: 1.5px solid transparent;
+    transition: background .15s, border-color .15s;
+}
+.view-link:hover { background: var(--sky); border-color: var(--mist); color: var(--deep); }
+
+/* Empty table row */
+.t-empty { text-align: center; padding: 2.5rem; color: var(--ghost); }
+.t-empty svg { display: block; margin: 0 auto .7rem; color: #d1d5db; }
+.t-empty p { font-size: .85rem; margin-bottom: .4rem; }
+
+/* ============================================================
+   SHARED BUTTON STYLES
+============================================================ */
+.btn-sm {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .52rem 1.1rem; border-radius: 8px;
+    font-size: .8rem; font-weight: 600; font-family: 'DM Sans', sans-serif;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .18s, transform .18s, box-shadow .18s;
+    white-space: nowrap;
+}
+
+.btn-sm-solid {
+    background: var(--pool); color: #fff;
+    box-shadow: 0 2px 10px rgba(123,191,212,.22);
+}
+.btn-sm-solid:hover { background: var(--deep); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(58,125,150,.25); }
+
+.btn-sm-outline {
+    background: #fff; color: var(--body);
+    border: 1.5px solid var(--border) !important;
+}
+.btn-sm-outline:hover { border-color: var(--pool) !important; color: var(--ink); transform: translateY(-1px); }
+
+.btn-sm-ghost {
+    background: var(--sky); color: var(--deep);
+    border: 1.5px solid var(--mist) !important;
+}
+.btn-sm-ghost:hover { background: var(--mist); border-color: var(--pool) !important; transform: translateY(-1px); }
+
+/* view-all link (re-used from home) */
+.view-all {
+    font-size: .82rem; font-weight: 600; color: var(--pool);
+    text-decoration: none; border-bottom: 1.5px solid var(--mist); padding-bottom: 1px;
+    transition: color .18s, border-color .18s; white-space: nowrap;
+}
+.view-all:hover { color: var(--deep); border-color: var(--deep); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 860px) {
+    .profile-shell { flex-direction: column; }
+
+    .profile-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .75rem 1.25rem;
+        padding: 1rem 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-avatar-initials,
+    .sidebar-avatar-img { width: 44px; height: 44px; font-size: 1rem; margin: 0; }
+
+    .sidebar-name { text-align: left; font-size: .95rem; }
+    .sidebar-email { text-align: left; }
+    .sidebar-role-pill { margin: 0; }
+    .sidebar-stat { margin-bottom: 0; padding: .4rem .75rem; }
+    .sidebar-sep { display: none; }
+    .sidebar-nav { flex-direction: row; flex-wrap: wrap; gap: .3rem; }
+    .sidebar-link { padding: .4rem .7rem; font-size: .76rem; }
+    .sidebar-footer { flex-direction: row; border-top: none; padding-top: 0; }
+
+    .profile-main { padding: 1.25rem 1rem; }
+}

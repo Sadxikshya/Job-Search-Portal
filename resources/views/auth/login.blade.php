@@ -130,7 +130,7 @@
             
             try {
                 const response = await fetch('/api/login', {
-                    method: 'POST',
+                    method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
@@ -161,7 +161,7 @@
                     console.log('Redirecting to /jobs...'); // Debug
                     
                     // Redirect - use window.location.replace for full page reload
-                    window.location.replace('/jobs');
+                    window.location.replace('/');
                     
                 } else {
                     console.error('Login failed:', data); // Debug
