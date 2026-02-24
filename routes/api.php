@@ -10,10 +10,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/test',function()
-{
-    return["name"=>"sadi","age"=>"17"];
-});
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -30,8 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::apiResource('jobs', JobController::class);
-Route::get('stats', [StatsController::class, 'index']); // Add this line
 
-
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('jobs', JobController::class);
+    Route::get('stats', [StatsController::class, 'index']);
+});

@@ -4,18 +4,26 @@ namespace App\Listeners;
 
 use App\Events\JobApplied;
 use App\Mail\JobseekerApplicationConfirmationMail;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 
-class SendJobseekerConfirmationMail
+class SendJobseekerConfirmationMail implements ShouldQueue
 {
+    use InteractsWithQueue;
+
     /**
-     * Create the event listener.
+     * Number of times the job may be attempted.
      */
-    public function __construct()
-    {
-        //
-    }
+    public int $tries = 3;
+
+    /**
+     * Backoff time in seconds between retries.
+     *
+     * @var array<int, int>
+     */
+    public array $backoff = [60, 300, 900];
 
     /**
      * Handle the event.

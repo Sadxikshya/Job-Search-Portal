@@ -11,6 +11,8 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobSeekerProfileController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
+
 
 
 Route::get('/', [HomeController::class, 'index']);
@@ -85,18 +87,13 @@ Route::patch('/applications/{application}/status',
 
 
 Route::get('/jobseekers/{user}/cv', [JobSeekerProfileController::class, 'downloadCV'])
+    ->middleware('auth')
     ->name('jobseeker.cv.download');
 
 Route::get('/jobseeker/cv/download', [JobSeekerProfileController::class, 'downloadOwnCV'])
     ->middleware('auth')
     ->name('jobseeker.cv.own');
 
-
-Route::get('/debug-auth', function() {
-    return response()->json([
-        'authenticated' => Auth::check(),
-        'user' => Auth::user(),
-        'session_id' => session()->getId(),
-        'session_data' => session()->all(),
-    ]);
-})->middleware('web');
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('/notifications/{id}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
+Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.readAll');

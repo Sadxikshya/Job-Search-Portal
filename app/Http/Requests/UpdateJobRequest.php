@@ -18,7 +18,7 @@ class UpdateJobRequest extends FormRequest
             'salary' => 'required|numeric',
             'description' => 'required|string',
             'location' => 'required|string',
-            'job_type' => 'required|in:full-time,part-time,remote',
+            'job_type' => 'required|in:full-time,part-time,contract,internship',
             'education' => 'required|string|in:high-school,diploma,bachelor,master,phd',
             'experience_level' => 'required|in:Entry Level,Mid Level,Senior Level,Lead/Manager',
         ];

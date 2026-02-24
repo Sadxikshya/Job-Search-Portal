@@ -12,9 +12,16 @@ class Job extends Model
 
     protected $table = 'jobs_listings'; // naming arkai bhayera natra job ko jobs table ma hunthyo
 
-    //protected $fillable = ['title', 'salary', 'description', 'location', 'job_type', 'user_id'];
-
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'salary',
+        'description',
+        'location',
+        'job_type',
+        'education',
+        'experience_level',
+        'user_id',
+    ];
 
     public function user() // now the employer is the user
     {

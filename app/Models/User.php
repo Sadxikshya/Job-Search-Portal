@@ -10,14 +10,22 @@ use App\Models\Job;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Panel;
+use Filament\Models\Contracts\FilamentUser;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasApiTokens ,Notifiable;
 
     
-    protected $guarded = [];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'role_type',
+        'email_verified_at',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.

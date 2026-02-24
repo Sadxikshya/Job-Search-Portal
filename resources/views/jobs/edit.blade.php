@@ -1,198 +1,334 @@
 <x-layout>
-    <x-slot:heading>
-        Edit Job: {{$job->title}}
-    </x-slot:heading>
+    <x-slot:heading>Edit Job</x-slot:heading>
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-            <form method="POST" action="/jobs/{{$job->id}}">
-                @csrf 
-                @method('PATCH')
-                
-                <div class="space-y-8">
-                    <!-- Job Title -->
-                    <div>
-                        <label for="title" class="block text-sm font-medium text-gray-900 mb-2">
-                            Job Title
-                        </label>
-                        <input
-                            id="title" 
-                            type="text"
-                            name="title"
-                            placeholder="e.g., Software Engineer" 
-                            value="{{$job->title}}"
-                            class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                            required
-                        />
-                        @error('title')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+    <link rel="stylesheet" href="/css/profile.css">
+    <style>
+        .jf-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 3rem 2rem 5rem;
+        }
 
-                    <!-- Salary -->
-                    <div>
-                        <label for="salary" class="block text-sm font-medium text-gray-900 mb-2">
-                            Salary
-                        </label>
-                        <input 
-                            id="salary"
-                            type="text" 
-                            name="salary"
-                            value="{{$job->salary}}"
-                            placeholder="e.g., $50,000 - $70,000" 
-                            class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                            required
-                        />
-                        @error('salary')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+        .jf-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--ghost);
+            text-decoration: none;
+            margin-bottom: 1.75rem;
+            transition: color .15s;
+        }
+        .jf-back:hover { color: var(--pool); }
 
-                    <!-- Description -->
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-900 mb-2">
-                            Job Description
-                        </label>
-                        <div class="sm:col-span-6">
-                            <label class="block text-sm font-medium text-gray-700">
-                                Job Description
-                            </label>
+        .jf-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
 
-                            <input id="description" type="hidden" name="description"
-                                value="{{ old('description', $job->description) }}">
+        .jf-eyebrow {
+            font-size: .67rem;
+            font-weight: 700;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--pool);
+            margin-bottom: .4rem;
+        }
 
-                            <trix-editor input="description" class="mt-1 trix-content"></trix-editor>
+        .jf-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--ink);
+            line-height: 1.1;
+            margin-bottom: .5rem;
+        }
 
-                            @error('description')
-                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+        .jf-subtitle {
+            font-size: .9rem;
+            color: var(--ghost);
+        }
 
-                        @error('description')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+        .jf-field {
+            display: flex;
+            flex-direction: column;
+            gap: .55rem;
+            margin-bottom: 2.25rem;
+        }
 
-                    <!-- Location -->
-                    <div>
-                        <label for="location" class="block text-sm font-medium text-gray-900 mb-2">
-                            Location
-                        </label>
-                        <input
-                            id="location"
-                            name="location"
-                            type="text"
-                            value="{{ $job->location }}"
-                            placeholder="e.g., New York, NY"
-                            class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                            required
-                        />
-                        @error('location')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+        .jf-label {
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: .01em;
+        }
 
-                    <!-- Two Column Grid for Select Fields -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Job Type -->
-                        <div>
-                            <label for="job_type" class="block text-sm font-medium text-gray-900 mb-2">
-                                Job Type
-                            </label>
-                            <select 
-                                id="job_type" 
-                                name="job_type" 
-                                class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                                required
-                            >
-                                <option value="full-time" @selected($job->job_type === 'full-time')>Full Time</option>
-                                <option value="part-time" @selected($job->job_type === 'part-time')>Part Time</option>
-                                <option value="remote" @selected($job->job_type === 'remote')>Remote</option>
-                            </select>
-                            @error('job_type')
-                                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+        .jf-hint {
+            font-size: .76rem;
+            color: var(--ghost);
+            margin-top: -.3rem;
+        }
 
-                        <!-- Education -->
-                        <div>
-                            <label for="education" class="block text-sm font-medium text-gray-900 mb-2">
-                                Education Level
-                            </label>
-                            <select
-                                id="education"
-                                name="education"
-                                class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                                required
-                            >
-                                <option value="">Select education level</option>
-                                <option value="high-school" @selected($job->education === 'high-school')>High School</option>
-                                <option value="diploma" @selected($job->education === 'diploma')>Diploma</option>
-                                <option value="bachelor" @selected($job->education === 'bachelor')>Bachelor's Degree</option>
-                                <option value="master" @selected($job->education === 'master')>Master's Degree</option>
-                                <option value="phd" @selected($job->education === 'phd')>PhD</option>
-                            </select>
-                            @error('education')
-                                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
+        .jf-input,
+        .jf-select {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: .85rem 1.1rem;
+            font-size: .93rem;
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            transition: border-color .15s, box-shadow .15s;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-                    <!-- Experience Level -->
-                    <div>
-                        <label for="experience_level" class="block text-sm font-medium text-gray-900 mb-2">
-                            Experience Level
-                        </label>
-                        <select
-                            id="experience_level"
-                            name="experience_level"
-                            class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
-                            required
-                        >
-                            <option value="">Select experience level</option>
-                            <option value="Entry Level" @selected($job->experience_level === 'Entry Level')>Entry Level</option>
-                            <option value="Mid Level" @selected($job->experience_level === 'Mid Level')>Mid Level</option>
-                            <option value="Senior Level" @selected($job->experience_level === 'Senior Level')>Senior Level</option>
-                            <option value="Lead/Manager" @selected($job->experience_level === 'Lead/Manager')>Lead/Manager</option>
-                        </select>
-                        @error('experience_level')
-                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
+        .jf-input::placeholder { color: #b8c4cc; }
 
-                <!-- Action Buttons -->
-                <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between">
-                    <button 
-                        form="delete-form" 
-                        type="button"
-                        class="inline-flex items-center px-4 py-2 text-sm font-medium text-red-700 bg-red-50 rounded-md hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
-                    >
-                        Delete Job
-                    </button>
+        .jf-input:focus,
+        .jf-select:focus {
+            border-color: var(--pool);
+            box-shadow: 0 0 0 4px rgba(123,191,212,.13);
+        }
 
-                    <div class="flex items-center gap-3">
-                        <a 
-                            href="/jobs/{{$job->id}}"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
-                        >
-                            Cancel
-                        </a>
-                        
-                        <button 
-                            type="submit"
-                            class="inline-flex items-center px-5 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors shadow-sm"
-                        >
-                            Update Job
-                        </button>
-                    </div>
-                </div>
-            </form>
+        .jf-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' viewBox='0 0 10 6'%3E%3Cpath stroke='%238b9aab' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.1rem center;
+            padding-right: 2.75rem;
+            cursor: pointer;
+            background-color: #fff;
+        }
+
+        .jf-col2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem;
+        }
+
+        .jf-error {
+            font-size: .76rem;
+            color: #b91c1c;
+            margin-top: -.25rem;
+        }
+
+        trix-toolbar {
+            background: #fff !important;
+            border: 1.5px solid var(--border) !important;
+            border-bottom: none !important;
+            border-radius: 10px 10px 0 0 !important;
+            padding: .55rem .85rem !important;
+        }
+
+        trix-editor {
+            background: #fff !important;
+            border: 1.5px solid var(--border) !important;
+            border-top: none !important;
+            border-radius: 0 0 10px 10px !important;
+            min-height: 180px;
+            font-size: .93rem;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            padding: .85rem 1.1rem !important;
+            outline: none !important;
+            line-height: 1.7;
+        }
+
+        /* Actions */
+        .jf-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            margin-top: .75rem;
+        }
+
+        .jf-actions-right {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        .jf-btn-cancel {
+            font-size: .86rem;
+            font-weight: 600;
+            color: var(--ghost);
+            background: none;
+            border: none;
+            padding: .65rem 1rem;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
+            transition: color .15s, background .15s;
+        }
+        .jf-btn-cancel:hover { color: var(--ink); background: var(--frost); }
+
+        .jf-btn-delete {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .65rem 1.2rem;
+            font-size: .84rem;
+            font-weight: 600;
+            color: #b91c1c;
+            background: #fff;
+            border: 1.5px solid #fca5a5;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background .15s, border-color .15s;
+        }
+        .jf-btn-delete:hover { background: #fee2e2; border-color: #f87171; }
+
+        .jf-btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .72rem 2rem;
+            background: var(--pool);
+            color: #fff;
+            font-size: .88rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 3px 14px rgba(123,191,212,.3);
+            transition: background .15s, transform .15s, box-shadow .15s;
+        }
+        .jf-btn-submit:hover {
+            background: var(--deep);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(58,125,150,.28);
+        }
+
+        @media (max-width: 600px) {
+            .jf-page { padding: 2rem 1.25rem 3rem; }
+            .jf-col2 { grid-template-columns: 1fr; gap: 0; }
+            .jf-title { font-size: 1.55rem; }
+            .jf-actions { flex-direction: column; align-items: stretch; }
+            .jf-actions-right { justify-content: flex-end; }
+        }
+    </style>
+
+    <div class="jf-page">
+
+        <a href="/jobs/{{ $job->id }}" class="jf-back">
+            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Back to Job
+        </a>
+
+        <div class="jf-header">
+            <p class="jf-eyebrow">Editing</p>
+            <h1 class="jf-title">{{ $job->title }}</h1>
+            <p class="jf-subtitle">Update the details for this job listing.</p>
         </div>
+
+        <form method="POST" action="/jobs/{{ $job->id }}">
+            @csrf
+            @method('PATCH')
+
+            {{-- Title --}}
+            <div class="jf-field">
+                <label class="jf-label" for="title">Job Title</label>
+                <input class="jf-input" id="title" name="title" type="text"
+                       placeholder="e.g. Software Engineer" value="{{ old('title', $job->title) }}" required/>
+                @error('title')<p class="jf-error">{{ $message }}</p>@enderror
+            </div>
+
+            {{-- Description --}}
+            <div class="jf-field">
+                <label class="jf-label">Job Description</label>
+                <input id="description" type="hidden" name="description"
+                       value="{{ old('description', $job->description) }}">
+                <trix-editor input="description"></trix-editor>
+                @error('description')<p class="jf-error">{{ $message }}</p>@enderror
+            </div>
+
+            {{-- Type + Location --}}
+            <div class="jf-col2">
+                <div class="jf-field">
+                    <label class="jf-label" for="job_type">Job Type</label>
+                    <select class="jf-select" id="job_type" name="job_type" required>
+                        <option value="full-time"  @selected($job->job_type === 'full-time')>Full-time</option>
+                        <option value="part-time"  @selected($job->job_type === 'part-time')>Part-time</option>
+                        <option value="contract"   @selected($job->job_type === 'contract')>Contract</option>
+                        <option value="internship" @selected($job->job_type === 'internship')>Internship</option>
+                    </select>
+                    @error('job_type')<p class="jf-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="jf-field">
+                    <label class="jf-label" for="location">Location</label>
+                    <input class="jf-input" id="location" name="location" type="text"
+                           placeholder="Kathmandu / Remote" value="{{ old('location', $job->location) }}" required/>
+                    @error('location')<p class="jf-error">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
+            {{-- Salary --}}
+            <div class="jf-field">
+                <label class="jf-label" for="salary">Monthly Salary (Rs.)</label>
+                <input class="jf-input" id="salary" name="salary" type="text"
+                       placeholder="e.g. 50,000" value="{{ old('salary', $job->salary) }}" required/>
+                @error('salary')<p class="jf-error">{{ $message }}</p>@enderror
+            </div>
+
+            {{-- Education + Experience --}}
+            <div class="jf-col2">
+                <div class="jf-field">
+                    <label class="jf-label" for="education">Education Required</label>
+                    <select class="jf-select" id="education" name="education" required>
+                        <option value="">Select level</option>
+                        <option value="high-school" @selected($job->education === 'high-school')>High School</option>
+                        <option value="diploma"     @selected($job->education === 'diploma')>Diploma</option>
+                        <option value="bachelor"    @selected($job->education === 'bachelor')>Bachelor</option>
+                        <option value="master"      @selected($job->education === 'master')>Master</option>
+                        <option value="phd"         @selected($job->education === 'phd')>PhD</option>
+                    </select>
+                    @error('education')<p class="jf-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="jf-field">
+                    <label class="jf-label" for="experience_level">Experience Level</label>
+                    <select class="jf-select" id="experience_level" name="experience_level" required>
+                        <option value="">Select level</option>
+                        <option value="Entry Level"  @selected($job->experience_level === 'Entry Level')>Entry Level</option>
+                        <option value="Mid Level"    @selected($job->experience_level === 'Mid Level')>Mid Level</option>
+                        <option value="Senior Level" @selected($job->experience_level === 'Senior Level')>Senior Level</option>
+                        <option value="Lead/Manager" @selected($job->experience_level === 'Lead/Manager')>Lead/Manager</option>
+                    </select>
+                    @error('experience_level')<p class="jf-error">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
+            {{-- Actions --}}
+            <div class="jf-actions">
+                <button type="button" class="jf-btn-delete"
+                        onclick="if(confirm('Are you sure you want to delete this job?')) document.getElementById('delete-form').submit()">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    Delete Job
+                </button>
+
+                <div class="jf-actions-right">
+                    <a href="/jobs/{{ $job->id }}" class="jf-btn-cancel">Cancel</a>
+                    <button type="submit" class="jf-btn-submit">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                        Update Job
+                    </button>
+                </div>
+            </div>
+
+        </form>
     </div>
 
-    <!-- Hidden Delete Form -->
-    <form method="POST" action="/jobs/{{$job->id}}" id="delete-form" class="hidden">
+    <form method="POST" action="/jobs/{{ $job->id }}" id="delete-form" style="display:none;">
         @csrf
         @method('DELETE')
     </form>

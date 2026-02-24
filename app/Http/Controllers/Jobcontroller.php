@@ -34,7 +34,7 @@ class JobController extends Controller
                 $query->where('experience_level', $request->experience_level);
             })
             ->latest()
-            ->paginate(3)
+            ->paginate(9)
             ->withQueryString(); //  keeps filters during pagination just changes page number 
 
         return view('jobs.index', compact('jobs'));

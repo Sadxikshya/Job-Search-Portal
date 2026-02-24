@@ -19,15 +19,13 @@
 .profile-sidebar {
     width: 260px;
     flex-shrink: 0;
-    background: #fff;
-    border-right: 1px solid var(--border);
+    background: #1a2b33;
+    border-right: none;
     display: flex;
     flex-direction: column;
     padding: 2rem 1.5rem;
-    position: sticky;
-    top: 0;
-    height: calc(100vh - 60px);
-    overflow-y: auto;
+    position: static;
+    overflow-y: visible;
 }
 
 /* Avatar */
@@ -44,7 +42,7 @@
     height: 68px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--mist);
+    border: 2px solid rgba(123,191,212,.35);
     display: block;
     margin: 0 auto 1rem;
 }
@@ -53,21 +51,21 @@
     width: 68px;
     height: 68px;
     border-radius: 50%;
-    background: var(--sky);
-    border: 2px solid var(--mist);
+    background: rgba(123,191,212,.2);
+    border: 2px solid rgba(123,191,212,.35);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'DM Serif Display', serif;
     font-size: 1.5rem;
-    color: var(--deep);
+    color: #fff;
     margin: 0 auto 1rem;
 }
 
 .sidebar-name {
     font-family: 'DM Serif Display', serif;
     font-size: 1.1rem;
-    color: var(--ink);
+    color: #fff;
     text-align: center;
     line-height: 1.2;
     margin-bottom: .25rem;
@@ -75,7 +73,7 @@
 
 .sidebar-email {
     font-size: .75rem;
-    color: var(--ghost);
+    color: rgba(255,255,255,.5);
     text-align: center;
     margin-bottom: .85rem;
     word-break: break-all;
@@ -89,9 +87,9 @@
     font-weight: 700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--deep);
-    background: var(--sky);
-    border: 1px solid var(--mist);
+    color: #fff;
+    background: rgba(123,191,212,.25);
+    border: 1px solid rgba(123,191,212,.35);
     border-radius: 999px;
     padding: .25rem .75rem;
 }
@@ -102,8 +100,8 @@
     align-items: baseline;
     justify-content: center;
     gap: .5rem;
-    background: var(--frost);
-    border: 1px solid var(--border);
+    background: rgba(0,0,0,.2);
+    border: 1px solid rgba(255,255,255,.1);
     border-radius: 10px;
     padding: .7rem 1rem;
     margin-bottom: 1.5rem;
@@ -121,13 +119,13 @@
     font-weight: 600;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: var(--ghost);
+    color: rgba(255,255,255,.5);
 }
 
 /* Divider */
 .sidebar-sep {
     height: 1px;
-    background: var(--border);
+    background: rgba(255,255,255,.1);
     margin: 1.1rem 0;
 }
 
@@ -147,32 +145,32 @@
     border-radius: 9px;
     font-size: .83rem;
     font-weight: 500;
-    color: var(--body);
+    color: rgba(255,255,255,.6);
     text-decoration: none;
     border: 1px solid transparent;
     transition: background .18s, color .18s, border-color .18s;
 }
 
 .sidebar-link:hover {
-    background: var(--frost);
-    color: var(--ink);
+    background: rgba(255,255,255,.08);
+    color: #fff;
 }
 
 .sidebar-link.active {
-    background: var(--sky);
-    border-color: var(--mist);
-    color: var(--deep);
+    background: rgba(123,191,212,.18);
+    border-color: rgba(123,191,212,.3);
+    color: #fff;
     font-weight: 600;
 }
 
-.sidebar-link svg { flex-shrink: 0; color: var(--ghost); }
+.sidebar-link svg { flex-shrink: 0; color: rgba(255,255,255,.35); }
 .sidebar-link.active svg,
 .sidebar-link:hover svg { color: var(--pool); }
 
 /* CTA buttons in sidebar footer */
 .sidebar-footer {
     padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255,255,255,.1);
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -186,6 +184,7 @@
     min-width: 0;
     padding: 2rem 2.25rem;
     overflow-y: auto;
+    background: #fff;
 }
 
 /* Page section heading */
@@ -228,14 +227,15 @@
     justify-content: space-between;
     gap: 1rem;
     padding: .9rem 1.4rem;
-    background: var(--frost);
-    border-bottom: 1px solid var(--border);
+    background: #4a6270;
+    border-bottom: 1px solid #cfe0e8;
 }
 
 .pcard-title {
     font-family: 'DM Serif Display', serif;
     font-size: 1rem;
-    color: var(--ink);
+    color: #fff;
+    letter-spacing: .01em;
 }
 
 .pcard-body {
@@ -246,6 +246,7 @@
     height: 1px;
     background: var(--border);
     margin: 1.1rem 0;
+    
 }
 
 /* ============================================================
@@ -564,8 +565,8 @@
     .sidebar-avatar-initials,
     .sidebar-avatar-img { width: 44px; height: 44px; font-size: 1rem; margin: 0; }
 
-    .sidebar-name { text-align: left; font-size: .95rem; }
-    .sidebar-email { text-align: left; }
+    .sidebar-name { text-align: left; font-size: .95rem; color: #fff; }
+    .sidebar-email { text-align: left; color: rgba(255,255,255,.5); }
     .sidebar-role-pill { margin: 0; }
     .sidebar-stat { margin-bottom: 0; padding: .4rem .75rem; }
     .sidebar-sep { display: none; }

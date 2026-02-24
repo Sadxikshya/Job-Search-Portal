@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Bridge</title>
+    <title>Career Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/trix@2.1.8/dist/trix.css">
     <script src="https://unpkg.com/trix@2.1.8/dist/trix.umd.min.js" defer></script>
@@ -121,6 +121,39 @@
         }
         .nav-btn-danger:hover { color: #c53030; border-color: #fc8181; background: #fff5f5; }
 
+        /* ── Notification bell ── */
+        .nav-bell {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            color: var(--ghost);
+            border: 1.5px solid var(--border);
+            text-decoration: none;
+            transition: color .2s, background .2s, border-color .2s;
+        }
+        .nav-bell:hover {
+            color: var(--deep);
+            background: var(--sky);
+            border-color: var(--mist);
+        }
+        .nav-bell-badge {
+            position: absolute;
+            top: -5px; right: -5px;
+            min-width: 18px; height: 18px;
+            padding: 0 4px;
+            border-radius: 9999px;
+            background: #e53e3e;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #fff;
+            line-height: 1;
+        }
+
         /* Mobile hide */
         @media (max-width: 768px) {
             .nav-links, .nav-actions { display: none; }
@@ -143,7 +176,7 @@
                         <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                 </div>
-                Career<em>Bridge</em>
+                Career<em>Hub</em>
             </a>
 
             {{-- Desktop nav links --}}
@@ -164,6 +197,24 @@
                 @endguest
 
                 @auth
+                    {{-- ── Notification Bell ── --}}
+                    @php
+                        $unreadCount = auth()->user()->unreadNotifications()->count();
+                    @endphp
+                    <a href="{{ route('notifications.index') }}"
+                       class="nav-bell"
+                       title="Notifications{{ $unreadCount > 0 ? " ($unreadCount unread)" : '' }}">
+                        <svg width="18" height="18" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 17H20L18.595 15.595A1.8 1.8 0 0118 14.382V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.382a1.8 1.8 0 01-.595 1.023L4 17h5m6 0a3 3 0 01-6 0m6 0H9"/>
+                        </svg>
+                        @if($unreadCount > 0)
+                            <span class="nav-bell-badge">
+                                {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                            </span>
+                        @endif
+                    </a>
+
                     @if(auth()->user()->isEmployer())
                         <a href="/jobs/create" class="nav-btn nav-btn-solid">
                             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

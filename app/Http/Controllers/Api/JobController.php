@@ -20,7 +20,7 @@ class JobController extends Controller
     
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 3);
+        $perPage = $request->input('per_page', 9);
 
         $cacheKey = 'jobs_' . md5($request->fullUrl());
 

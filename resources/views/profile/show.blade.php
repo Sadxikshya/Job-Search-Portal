@@ -36,18 +36,21 @@
             {{-- Nav --}}
             <nav class="sidebar-nav">
                 @if(!$user->isEmployer())
-                <a href="{{ route('jobseeker.profile.edit') }}" class="sidebar-link active">
+                <a href="{{ route('jobseeker.profile.edit') }}"
+                   class="sidebar-link {{ request()->routeIs('jobseeker.profile.edit') ? 'active' : '' }}">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                     {{ Auth::user()->hasCompletedProfile() ? 'Edit Profile' : 'Complete Profile' }}
                 </a>
                 @endif
 
-                <a href="{{ route('profile.edit') }}" class="sidebar-link">
+                <a href="{{ route('profile.edit') }}"
+                   class="sidebar-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
                     Account Settings
                 </a>
 
-                <a href="/jobs" class="sidebar-link">
+                <a href="/jobs"
+                   class="sidebar-link {{ request()->is('jobs') ? 'active' : '' }}">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     Browse Jobs
                 </a>
@@ -61,12 +64,6 @@
                         Download CV
                     </a>
                 @endif
-                {{-- @if($user->isEmployer())
-                    <a href="/jobs/create" class="btn-sm btn-sm-solid">
-                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                        Post a Job
-                    </a>
-                @endif --}}
             </div>
 
         </aside>
@@ -82,7 +79,6 @@
                 <p class="pm-eyebrow">Overview</p>
                 <h1 class="pm-title">Professional Profile</h1>
 
-                {{-- Contact + Experience --}}
                 <div class="pcard">
                     <div class="pcard-header">
                         <span class="pcard-title">Details</span>
@@ -150,7 +146,7 @@
                             <div class="resume-ico">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                             </div>
-                            <div class="resume-name-wrap" style="flex:1;min-width:0;">
+                            <div style="flex:1;min-width:0;">
                                 <p class="resume-name">{{ basename($user->jobseekerProfile->resume) }}</p>
                                 <p class="resume-type">PDF Document</p>
                             </div>
@@ -313,5 +309,5 @@
 
         </main>
 
-    </div>{{-- /.profile-shell --}}
+    </div>
 </x-layout>
