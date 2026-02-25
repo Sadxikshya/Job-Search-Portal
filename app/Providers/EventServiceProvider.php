@@ -10,6 +10,7 @@ use App\Events\UserRegistered;
 use App\Listeners\SendJobseekerConfirmationMail;
 use App\Listeners\SendJobStatusUpdatedMail;
 use App\Listeners\SendWelcomeEmail;
+use App\Listeners\SendEmployerDatabaseNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,13 +21,14 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         ApplicationStatusUpdated::class => [
-        SendJobStatusUpdatedMail::class,
+            SendJobStatusUpdatedMail::class,
         ],
 
-    JobApplied::class => [
-        SendEmployerJobAppliedMail::class,
-        SendJobseekerConfirmationMail::class,
-    ],
+        JobApplied::class => [
+            SendEmployerJobAppliedMail::class,
+            SendJobseekerConfirmationMail::class,
+            SendEmployerDatabaseNotification::class,
+        ],
 
     ];
 

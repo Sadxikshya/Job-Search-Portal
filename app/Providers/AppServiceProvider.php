@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use App\Events\ApplicationStatusUpdated;
 use App\Events\JobApplied;
-use App\Listeners\SendEmployerDatabaseNotification;
-use App\Listeners\SendJobseekerDatabaseNotification;
+// use App\Listeners\SendEmployerDatabaseNotification;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
 // use Illuminate\Pagination\Paginator;
@@ -38,11 +37,10 @@ class AppServiceProvider extends ServiceProvider
             return $user->role === 'employer' && $user->employer; 
         });
 
-         // Notify employer when a job seeker applies
-        Event::listen(
-            JobApplied::class,
-            SendEmployerDatabaseNotification::class,
-        );
+        // Event::listen(
+        //     JobApplied::class,
+        //     SendEmployerDatabaseNotification::class,
+        // );
 
     }
 

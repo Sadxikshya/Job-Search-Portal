@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jobs_listings', function (Blueprint $table) {
-             $table->string('education',100)->nullable()->after('description');
+            $table->enum('education', [
+                'High School',
+                'Diploma',
+                'Bachelor',
+                'Master',
+                'PhD'
+            ])->nullable()->after('description');
         
             // Enum for experience level (predefined options)
             $table->enum('experience_level', [

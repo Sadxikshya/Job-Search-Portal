@@ -13,24 +13,20 @@ class DatabaseSeeder extends Seeder
     {
         /*
         |--------------------------------------------------------------------------
-        | 1. Create Employers
+        | 1. Create 15 Employers
         |--------------------------------------------------------------------------
         */
-        $employers = User::factory(8)
-            ->employer()
-            ->create();
+        $employers = User::factory(15)->employer()->create();
 
         /*
         |--------------------------------------------------------------------------
-        | 2. Create Jobseekers
+        | 2. Create 25 Jobseekers
         |--------------------------------------------------------------------------
         */
-        $jobseekers = User::factory(120)
-            ->jobseeker()
-            ->create();
+        $jobseekers = User::factory(25)->jobseeker()->create();
 
         /*
-        |--------------------------------------------------------------------------po
+        |--------------------------------------------------------------------------
         | 3. Create Jobseeker Profiles
         |--------------------------------------------------------------------------
         */
@@ -39,7 +35,11 @@ class DatabaseSeeder extends Seeder
                 'phone' => fake()->phoneNumber(),
                 'address' => fake()->address(),
                 'education' => fake()->randomElement([
-                    'Bachelor', 'Master', 'PhD'
+                    'High School',
+                    'Diploma',
+                    'Bachelor',
+                    'Master',
+                    'PhD'
                 ]),
                 'experience_level' => fake()->randomElement([
                     'Entry Level',
@@ -48,46 +48,63 @@ class DatabaseSeeder extends Seeder
                     'Lead/Manager'
                 ]),
                 'skills' => implode(',', fake()->words(5)),
-                'bio' => fake()->paragraph(10),
+                'bio' => fake()->paragraph(5),
                 'resume' => null,
             ]);
         }
 
         /*
         |--------------------------------------------------------------------------
-        | 4. Create Jobs (Assigned to Random Employers)
+        | 4. Create 45 Jobs with Random Employer Distribution
         |--------------------------------------------------------------------------
         */
-        $jobs = Job::factory(40)
-            ->make()
-            ->each(fn ($job) => $job->user_id = $employers->random()->id)
-            ->each->save();
+
+        $totalJobs = 45;
+        $minJobsPerEmployer = 1;
+        $maxJobsPerEmployer = 5; // optional max
+
+        $jobs = collect();
+
+        // Generate random job counts per employer, sum must be 45
+        $jobCounts = [];
+        $remainingJobs = $totalJobs;
+
+        foreach ($employers as $index => $employer) {
+            $remainingEmployers = $employers->count() - $index;
+            $max = min($maxJobsPerEmployer, $remainingJobs - ($remainingEmployers - 1) * $minJobsPerEmployer);
+            $count = rand($minJobsPerEmployer, $max);
+            $jobCounts[$employer->id] = $count;
+            $remainingJobs -= $count;
+        }
+
+        // Create jobs per employer
+        foreach ($jobCounts as $employerId => $count) {
+            $employerJobs = Job::factory($count)->create([
+                'user_id' => $employerId,
+            ]);
+
+            $jobs = $jobs->merge($employerJobs);
+        }
 
         /*
         |--------------------------------------------------------------------------
-        | 5. Applications
-        | Each jobseeker applies to MULTIPLE jobs
+        | 5. Job Applications
+        | Each jobseeker applies to 2–6 random jobs
         |--------------------------------------------------------------------------
         */
         foreach ($jobseekers as $jobseeker) {
-
-            // Each jobseeker applies to 3–7 unique jobs
-            $jobsToApply = $jobs->random(rand(6, 12));
+            $jobsToApply = $jobs->random(rand(2, 6));
 
             foreach ($jobsToApply as $job) {
                 JobApplication::firstOrCreate(
                     [
-                        'job_id'  => $job->id,
+                        'job_id' => $job->id,
                         'user_id' => $jobseeker->id,
                     ],
                     [
                         'jobseeker_name' => $jobseeker->first_name . ' ' . $jobseeker->last_name,
-                        'employer_name'  => $job->user->first_name . ' ' . $job->user->last_name,
-                        'status'         => collect([
-                            'reviewing',
-                            'accepted',
-                            'rejected'
-                        ])->random(),
+                        'employer_name' => $job->user->first_name . ' ' . $job->user->last_name,
+                        'status' => collect(['reviewing','accepted','rejected'])->random(),
                     ]
                 );
             }
